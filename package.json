@@ -1,0 +1,22 @@
+{
+  "name": "kempas",
+  "version": "1.0.0",
+  "description": "Website Kempas",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/Sanity11/kempas.git"
+  },
+  "keywords": [
+    "website"
+  ],
+  "author": "Dion Snoeijen",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/Sanity11/kempas#readme",
+  "devDependencies": {
+    "webpack": "^1.14.0"
+  }
+}

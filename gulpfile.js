@@ -80,8 +80,9 @@ gulp.task('watch', function() {
 
 gulp.task('connect', function() {
     connect.server({
-        root: paths.deploy,
-        livereload: true
+        root: paths.deploy + '/',
+        livereload: true,
+        fallback: paths.deploy + '/index.html'
     });
 });
 

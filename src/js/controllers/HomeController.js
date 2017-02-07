@@ -1,8 +1,16 @@
 'use strict';
 
-export default class HomeController {
+import BaseController from './BaseController';
 
-    constructor(i18n) {
-        console.log(i18n.getTranslation('home'));
+export default class HomeController extends BaseController {
+
+    constructor(i18n, router) {
+        super(i18n, router);
+        console.log(this.i18n.getTranslation('home'));
+    }
+
+    render() {
+
+        return super.render();
     }
 }

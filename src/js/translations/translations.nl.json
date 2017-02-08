@@ -1,9 +1,17 @@
 {
   "home": "Home",
+  "home.route": "/nl",
   "case": "Project",
+  "case.route": "/nl/project/:slug",
   "case.slides": "Afbeeldingen",
+  "case.slides.route": "/nl/project/:slug/afbeeldingen",
   "cases": "Projecten",
+  "cases.route": "/nl/projecten",
   "about": "Over mij",
+  "about.route": "/nl/over-mij",
   "contact": "Contact",
-  "404": "Niet gevonden 404"
+  "contact.route": "/nl/contact",
+  "404": "Niet gevonden 404",
+  "404.route": "/*",
+  "404.page.route": "/404"
 }

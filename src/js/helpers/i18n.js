@@ -16,7 +16,7 @@ export default class I18n {
             case EN:
                 return en[key];
             default:
-                return 'NO TRANSLATION';
+                throw new EvalError('Wrong language');
         }
     }
 
@@ -32,5 +32,26 @@ export default class I18n {
                 LANG = NL;
                 break;
         }
+    }
+
+    getRoute(key, slug, lang) {
+        if (lang !== undefined) {
+            LANG = lang;
+        }
+        let translation = '';
+        switch (LANG) {
+            case NL:
+                translation = nl[key + '.route'];
+                break;
+            case EN:
+                translation = en[key + '.route'];
+                break;
+            default:
+                throw new URIError('Cannot find route');
+        }
+        if (slug !== undefined && slug !== null) {
+            translation = translation.replace(':slug', slug);
+        }
+        return translation;
     }
 }

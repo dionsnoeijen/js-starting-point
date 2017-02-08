@@ -1,9 +1,17 @@
 {
   "home": "Home",
+  "home.route": "/en",
   "case": "Case",
+  "case.route": "/en/case/:slug",
   "case.slides": "Slides",
+  "case.slides.route": "/en/case/:slug/slides",
   "cases": "Cases",
+  "cases.route": "/en/cases",
   "about": "About Me",
+  "about.route": "/en/about-me",
   "contact": "Contact",
-  "404": "Not found 404"
+  "contact.route": "/en/contact",
+  "404": "Not found 404",
+  "404.route": "/en/*",
+  "404.page.route": "/404"
 }

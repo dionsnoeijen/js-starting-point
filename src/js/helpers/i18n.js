@@ -50,7 +50,7 @@ export default class I18n {
                 throw new URIError('Cannot find route');
         }
         if (slug !== undefined && slug !== null) {
-            translation.replace(':slug', slug);
+            translation = translation.replace(':slug', slug);
         }
         return translation;
     }

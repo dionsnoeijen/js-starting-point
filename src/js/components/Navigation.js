@@ -2,8 +2,13 @@
 
 export default class Navigation {
 
-    constructor(i18n) {
+    constructor(i18n, router) {
         this.i18n = i18n;
+        this.router = router;
+    }
+
+    static getId() {
+        return 'navigation';
     }
 
     getNavigationElements() {
@@ -29,17 +34,32 @@ export default class Navigation {
 
     render() {
         return ([
-            '<nav>',
-            ... this.getNavigationElements().map(function(element) {
-                return ([
-                    '<li>',
-                        '<a href="' + element.href + '">',
-                        element.name,
-                        '</a>',
-                    '</li>'
-                ].join(''));
-            }),
+            '<nav id="' + this.constructor.getId() + '">',
+                '<ul>',
+                ... this.getNavigationElements().map(element => {
+                    return ([
+                        '<li>',
+                            '<a href="' + element.href + '">',
+                            element.name,
+                            '</a>',
+                        '</li>'
+                    ].join(''));
+                }),
+                '</ul>',
             '</nav>'
         ]);
+    }
+
+    events() {
+        let menu = document.querySelectorAll("nav > li > a");
+        Array.from(menu).map(link => {
+            link.addEventListener('click', this.onMenuClick.bind(this));
+        });
+    }
+
+    onMenuClick(event) {
+        event.preventDefault();
+        let target = event.target;
+        this.router.navigate(target.getAttribute('href'), true);
     }
 }

@@ -9,8 +9,16 @@ export default class HomeController extends BaseController {
         console.log(this.i18n.getTranslation('home'));
     }
 
-    render() {
+    static getId() {
+        return 'home';
+    }
 
-        return super.render();
+    render() {
+        return super.render([
+            '<div id="' + this.constructor.getId() + '">',
+            '<hr />',
+            '<p>Home</p>',
+            '</div>'
+        ]);
     }
 }

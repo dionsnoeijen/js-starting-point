@@ -48,30 +48,56 @@ class App {
     }
 
     createAbout() {
-        return new AboutController(this.i18n, this.router);
+        let about = new AboutController(this.i18n, this.router);
+        Render.toScreen(about);
+        about.header.navigation.events();
+        return about;
     }
 
     createCases() {
-        return new CasesController(this.i18n, this.router);
+        let cases = new CasesController(this.i18n, this.router);
+        Render.toScreen(cases);
+        cases.events();
+        return cases;
     }
 
     createCase(parameters) {
-        return new CaseController(this.i18n, this.router, parameters);
+        let casesId = CasesController.getId();
+        if (document.getElementById(casesId) === null) {
+            this.createCases();
+        }
+        let oneCase = new CaseController(this.i18n, this.router, parameters);
+        Render.toScreen(oneCase, [casesId]);
+        oneCase.events();
+        return oneCase;
     }
 
     createCaseSlides(parameters) {
-        return new CaseSlidesController(this.i18n, this.router, parameters);
+        let casesId = CasesController.getId();
+        if (document.getElementById(casesId) === null) {
+            this.createCases();
+        }
+        let caseId = parameters.slug;
+        if (document.getElementById(caseId) === null) {
+            this.createCase(parameters);
+        }
+        let slides = new CaseSlidesController(this.i18n, this.router, parameters);
+        Render.toScreen(slides, [casesId, caseId]);
+        slides.events();
+        return slides;
     }
 
     createContact() {
         let contact = new ContactController(this.i18n, this.router);
-        Render.toScreen(contact.render());
+        Render.toScreen(contact);
+        contact.header.navigation.events();
         return contact;
     }
 
     createHome() {
         let home = new HomeController(this.i18n, this.router);
-        Render.toScreen(home.render());
+        Render.toScreen(home);
+        home.header.navigation.events();
         return home;
     }
 

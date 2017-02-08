@@ -1,7 +1,6 @@
 'use strict';
 
 import Header from '../components/Header';
-import Navigation from '../components/Navigation';
 
 export default class BaseController {
 
@@ -18,6 +17,5 @@ export default class BaseController {
             ... page === undefined ? [] : page,
             '</div>'
         ]);
-
     }
 }

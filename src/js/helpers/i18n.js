@@ -32,6 +32,7 @@ export default class I18n {
                 LANG = NL;
                 break;
         }
+        return LANG;
     }
 
     getRoute(key, slug, lang) {

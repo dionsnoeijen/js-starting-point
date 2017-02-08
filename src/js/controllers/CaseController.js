@@ -15,13 +15,13 @@ export default class CaseController extends BaseController {
         return super.render([
             '<div id="' + this.parameters.slug + '">',
                 '<hr />',
-                '<p>Case ' + this.parameters.slug + ' <a href="/nl/project/' + this.parameters.slug + '/afbeeldingen">Slides</a></p>',
+                '<p>Case ' + this.parameters.slug + ' <a href="' + this.i18n.getRoute('case.slides', this.parameters.slug) + '">Slides</a></p>',
             '</div>'
         ]);
     }
 
     events() {
-        let slideLinks = document.querySelectorAll('#' + this.parameters.slug + ' > a');
+        let slideLinks = document.querySelectorAll('#' + this.parameters.slug + ' > p > a');
         Array.from(slideLinks).map(link => {
             link.removeEventListener('click', this.onSlidesClick.bind(this));
             link.addEventListener('click', this.onSlidesClick.bind(this));

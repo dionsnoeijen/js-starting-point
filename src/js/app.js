@@ -53,6 +53,10 @@ class App {
                 this.nav = component.header.navigation;
             }
             this.nav.events();
+            if (this.langNav === undefined) {
+                this.langNav = component.header.languageNavigation;
+            }
+            this.langNav.events();
         }
         this.navigationInitialized = true;
     }

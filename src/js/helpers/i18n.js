@@ -8,8 +8,12 @@ let LANG = '';
 
 export default class I18n {
 
-    getTranslation(key) {
-        this.determineLanguage();
+    getTranslation(key, lang) {
+        if (lang === undefined) {
+            this.determineLanguage();
+        } else {
+            LANG = lang;
+        }
         switch (LANG) {
             case NL:
                 return nl[key];

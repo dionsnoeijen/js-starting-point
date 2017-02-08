@@ -15,7 +15,7 @@ import { NL, EN } from 'config/config';
 class App {
 
     constructor() {
-
+        this.navigationInitialized = false;
         this.i18n = new I18n();
         this.router = new Navigo(null, false);
         this.router.on({
@@ -47,18 +47,35 @@ class App {
         this.router.resolve();
     }
 
+    initializeNav(component) {
+        if (!this.navigationInitialized) {
+            if (this.nav === undefined) {
+                this.nav = component.header.navigation;
+            }
+            this.nav.events();
+        }
+        this.navigationInitialized = true;
+    }
+
     createAbout() {
-        let about = new AboutController(this.i18n, this.router);
-        Render.toScreen(about);
-        about.header.navigation.events();
-        return about;
+        if (this.about === undefined) {
+            this.about = new AboutController(this.i18n, this.router);
+        }
+        Render.toScreen(this.about);
+        this.initializeNav(this.about);
+        this.nav.setActive();
+        return this.about;
     }
 
     createCases() {
-        let cases = new CasesController(this.i18n, this.router);
-        Render.toScreen(cases);
-        cases.events();
-        return cases;
+        if (this.cases === undefined) {
+            this.cases = new CasesController(this.i18n, this.router);
+        }
+        Render.toScreen(this.cases);
+        this.cases.events();
+        this.initializeNav(this.cases);
+        this.nav.setActive();
+        return this.cases;
     }
 
     createCase(parameters) {
@@ -66,10 +83,12 @@ class App {
         if (document.getElementById(casesId) === null) {
             this.createCases();
         }
-        let oneCase = new CaseController(this.i18n, this.router, parameters);
-        Render.toScreen(oneCase, [casesId]);
-        oneCase.events();
-        return oneCase;
+        this.oneCase = new CaseController(this.i18n, this.router, parameters)
+        Render.toScreen(this.oneCase, [casesId]);
+        this.oneCase.events();
+        this.initializeNav(this.oneCase);
+        this.nav.setActive();
+        return this.oneCase;
     }
 
     createCaseSlides(parameters) {
@@ -81,24 +100,32 @@ class App {
         if (document.getElementById(caseId) === null) {
             this.createCase(parameters);
         }
-        let slides = new CaseSlidesController(this.i18n, this.router, parameters);
-        Render.toScreen(slides, [casesId, caseId]);
-        slides.events();
-        return slides;
+        this.slides = new CaseSlidesController(this.i18n, this.router, parameters);
+        Render.toScreen(this.slides, [casesId, caseId]);
+        this.slides.events();
+        this.initializeNav(this.slides);
+        this.nav.setActive();
+        return this.slides;
     }
 
     createContact() {
-        let contact = new ContactController(this.i18n, this.router);
-        Render.toScreen(contact);
-        contact.header.navigation.events();
-        return contact;
+        if (this.contact === undefined) {
+            this.contact = new ContactController(this.i18n, this.router);
+        }
+        Render.toScreen(this.contact);
+        this.initializeNav(this.contact);
+        this.nav.setActive();
+        return this.contact;
     }
 
     createHome() {
-        let home = new HomeController(this.i18n, this.router);
-        Render.toScreen(home);
-        home.header.navigation.events();
-        return home;
+        if (this.home === undefined) {
+            this.home = new HomeController(this.i18n, this.router);
+        }
+        Render.toScreen(this.home);
+        this.initializeNav(this.home);
+        this.nav.setActive();
+        return this.home;
     }
 
     createNotFound() {

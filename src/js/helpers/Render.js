@@ -49,9 +49,13 @@ export default class Render {
             }
         }
         if (components.length > 0) {
-            let removeElement = document.getElementById(components[0]);
-            removeElement.parentNode.removeChild(removeElement);
-            this.unStore(components);
+            for (let i in components) {
+                let removeElement = document.getElementById(components[i]);
+                if (removeElement !== null) {
+                    removeElement.parentNode.removeChild(removeElement);
+                    this.unStore(components);
+                }
+            }
         }
     }
 

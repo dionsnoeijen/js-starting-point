@@ -16,12 +16,8 @@ import Routes from 'config/Routes';
 import { NL, EN } from 'config/config';
 import { dispatch, addObservable, getState } from 'helpers/State';
 import {
-    ON_ROUTE_HOME,
-    ON_ROUTE_ABOUT,
-    ON_ROUTE_CASES,
-    ON_ROUTE_CASE,
-    ON_ROUTE_CASE_SLIDES,
-    ON_ROUTE_CONTACT,
+    ON_ROUTE_HOME, ON_ROUTE_ABOUT, ON_ROUTE_CASES,
+    ON_ROUTE_CASE, ON_ROUTE_CASE_SLIDES, ON_ROUTE_CONTACT,
     ON_ROUTE_NOT_FOUND
 } from 'config/actions';
 

@@ -1,33 +1,38 @@
 'use strict';
 
 import BaseController from './BaseController';
-import { dispatch, addObservable } from 'helpers/State';
+import { dispatch, addObservable } from '../helpers/State';
+import I18n from '../helpers/i18n';
+import { ON_CASE_CONSTRUCTED } from '../config/actions';
 
 export default class CaseController extends BaseController {
 
-    constructor(i18n, router, parameters) {
-        super(i18n, router);
-        this.parameters = parameters;
+    constructor(router, header, parameters) {
+        super(router, header);
+        this.parameters = parameters.parameters;
     }
 
-    static create(i18n, router, parameters) {
-        let oneCase = new CaseController(i18n, router, parameters);
+    static create(router, header, parameters) {
+        let oneCase = new CaseController(router, header, parameters);
         addObservable(oneCase);
         dispatch({
-            listener: CaseController.ON_CASE_CONSTRUCTED
+            listener: ON_CASE_CONSTRUCTED,
+            data: {
+                [oneCase.parameters.slug + '-created']: true
+            }
         });
         return oneCase;
     }
 
-    [CaseController.ON_CASE_CONSTRUCTED](e) {
-        console.log('ON CASE CONSTRUCTED', e);
+    [ON_CASE_CONSTRUCTED](e) {
+
     }
 
     render() {
         return super.render([
             '<div id="' + this.parameters.slug + '">',
                 '<hr />',
-                '<p>Case ' + this.parameters.slug + ' <a href="' + this.i18n.getRoute('case.slides', this.parameters.slug) + '">Slides</a></p>',
+                '<p>Case ' + this.parameters.slug + ' <a href="' + I18n.getRoute('case.slides', this.parameters.slug) + '">Slides</a></p>',
             '</div>'
         ]);
     }
@@ -46,5 +51,3 @@ export default class CaseController extends BaseController {
         this.router.navigate(target.getAttribute('href'), true);
     }
 }
-
-CaseController.ON_CASE_CONSTRUCTED = 'onCaseConstructed';

@@ -27,7 +27,7 @@ export default class Navigation {
     }
 
     [ON_NAVIGATION_CREATED](e) {
-        console.log('NAV CREATED', e);
+
     }
 
     getActive() {

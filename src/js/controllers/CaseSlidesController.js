@@ -1,6 +1,7 @@
 'use strict';
 
 import BaseController from './BaseController';
+import { dispatch, addObservable } from 'helpers/State';
 
 export default class CaseSlidesController extends BaseController {
 
@@ -9,6 +10,12 @@ export default class CaseSlidesController extends BaseController {
 
         this.parameters = parameters;
         console.log(i18n.getTranslation('case.slides'), parameters);
+    }
+
+    static create(i18n, router, parameters) {
+        let caseSlides = new CaseSlidesController(i18n, router, parameters);
+        addObservable(caseSlides);
+        return caseSlides;
     }
 
     render() {

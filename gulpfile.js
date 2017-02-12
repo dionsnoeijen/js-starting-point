@@ -33,7 +33,6 @@ gulp.task('html', function() {
 });
 
 gulp.task('js', function() {
-
     return browserify({
         entries: [paths.source.scripts + '/app.js'],
         paths: ['./node_modules', paths.source.scripts],
@@ -87,14 +86,12 @@ gulp.task('connect', function() {
 });
 
 gulp.task('fonts', function() {
-
     return gulp.src([paths.source.fonts + '/**/*'])
         .pipe(gulp.dest(paths.dest.fonts))
         .pipe(size({showFiles: true, title: 'fonts', gzip:false}));
 });
 
 gulp.task('test', function() {
-
     return gulp.src(paths.source.scripts + '/tests/*.js', {read: false})
         .pipe(mocha({reporter: 'nyan'}));
 });

@@ -1,6 +1,7 @@
 'use strict';
 
 import BaseController from './BaseController';
+import { dispatch, addObservable } from 'helpers/State';
 
 export default class CasesController extends BaseController {
 
@@ -8,6 +9,12 @@ export default class CasesController extends BaseController {
         super(i18n, router);
 
         console.log(i18n.getTranslation('cases'));
+    }
+
+    static create(i18n, router) {
+        let cases = new CasesController(i18n, router);
+        addObservable(cases);
+        return cases;
     }
 
     static getId() {

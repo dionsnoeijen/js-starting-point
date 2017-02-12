@@ -1,13 +1,18 @@
 'use strict';
 
 import BaseController from '../controllers/BaseController';
+import { dispatch, addObservable } from 'helpers/State';
 
 export default class ContactController extends BaseController{
 
     constructor(i18n, router) {
         super(i18n, router);
+    }
 
-        console.log(i18n.getTranslation('contact'));
+    static create(i18n, router) {
+        let contact = new ContactController(i18n, router);
+        addObservable(contact);
+        return contact;
     }
 
     static getId() {

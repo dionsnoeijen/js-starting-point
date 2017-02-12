@@ -56,14 +56,21 @@ class App {
         return 'app';
     }
 
+    addEvents(component) {
+        if (component !== undefined) {
+            component.events();
+        }
+        this.navigation.events();
+        this.languageNavigation.events();
+        this.navigation.setActive();
+    }
+
     [ON_ROUTE_ABOUT]() {
         if (this.about === undefined) {
             this.about = AboutController.create(this.router, this.header);
         }
         Render.toScreen(this.about);
-        this.navigation.events();
-        this.languageNavigation.events();
-        this.navigation.setActive();
+        this.addEvents();
     }
 
     [ON_ROUTE_CASES]() {
@@ -71,10 +78,7 @@ class App {
             this.cases = CasesController.create(this.router, this.header);
         }
         Render.toScreen(this.cases);
-        this.cases.events();
-        this.navigation.events();
-        this.languageNavigation.events();
-        this.navigation.setActive();
+        this.addEvents(this.cases);
     }
 
     [ON_ROUTE_CASE](parameters) {
@@ -83,10 +87,7 @@ class App {
         }
         this.oneCase = CaseController.create(this.router, this.header, parameters);
         Render.toScreen(this.oneCase, [CasesController.getId()]);
-        this.oneCase.events();
-        this.navigation.events();
-        this.languageNavigation.events();
-        this.navigation.setActive();
+        this.addEvents(this.oneCase);
     }
 
     [ON_ROUTE_CASE_SLIDES](parameters) {
@@ -98,10 +99,7 @@ class App {
         }
         this.slides = CaseSlidesController.create(this.router, this.header, parameters);
         Render.toScreen(this.slides, [CasesController.getId(), parameters.slug]);
-        this.slides.events();
-        this.navigation.events();
-        this.languageNavigation.events();
-        this.navigation.setActive();
+        this.addEvents(this.slides);
     }
 
     [ON_ROUTE_CONTACT]() {
@@ -109,9 +107,7 @@ class App {
             this.contact = ContactController.create(this.router, this.header);
         }
         Render.toScreen(this.contact);
-        this.navigation.events();
-        this.languageNavigation.events();
-        this.navigation.setActive();
+        this.addEvents();
     }
 
     [ON_ROUTE_HOME]() {
@@ -119,9 +115,7 @@ class App {
             this.home = HomeController.create(this.router, this.header);
         }
         Render.toScreen(this.home);
-        this.navigation.events();
-        this.languageNavigation.events();
-        this.navigation.setActive();
+        this.addEvents();
     }
 
     [ON_ROUTE_NOT_FOUND]() {

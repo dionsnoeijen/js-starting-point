@@ -1,7 +1,8 @@
 'use strict';
 
 import BaseController from '../controllers/BaseController';
-import { dispatch, addObservable } from 'helpers/State';
+import { dispatch, addObservable } from '../helpers/State';
+import { ON_CONTACT_CONSTRUCTED } from '../config/actions';
 
 export default class ContactController extends BaseController{
 
@@ -12,7 +13,17 @@ export default class ContactController extends BaseController{
     static create(i18n, router) {
         let contact = new ContactController(i18n, router);
         addObservable(contact);
+        dispatch({
+            listener: ON_CONTACT_CONSTRUCTED,
+            data: {
+                homeCreated: true
+            }
+        });
         return contact;
+    }
+
+    [ON_CONTACT_CONSTRUCTED](e) {
+        
     }
 
     static getId() {

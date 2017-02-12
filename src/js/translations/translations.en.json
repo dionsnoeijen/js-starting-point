@@ -1,4 +1,5 @@
 {
+  "lang": "EN",
   "home": "Home",
   "home.route": "/en",
   "home.page.id": "home",
@@ -8,8 +9,8 @@
   "case.slides": "Slides",
   "case.slides.route": "/en/case/:slug/slides",
   "cases": "Cases",
-  "cases.route": "/en/cases",
-  "cases.page.id": "cases",
+  "cases.route": "/en/case",
+  "cases.page.id": "case",
   "about": "About Me",
   "about.route": "/en/about-me",
   "about.page.id": "about-me",

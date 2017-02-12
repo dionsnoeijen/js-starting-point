@@ -80,7 +80,7 @@ class App {
 
     [ON_ROUTE_CASE](parameters) {
         if (this.cases === undefined) {
-            this[Routes.ON_ROUTE_CASES]();
+            this[ON_ROUTE_CASES]();
         }
         this.oneCase = CaseController.create(this.i18n, this.router, parameters);
         Render.toScreen(this.oneCase, [CasesController.getId()]);
@@ -91,10 +91,10 @@ class App {
 
     [ON_ROUTE_CASE_SLIDES](parameters) {
         if (this.cases === undefined) {
-            this[Routes.ON_ROUTE_CASES]();
+            this[ON_ROUTE_CASES]();
         }
         if (this.oneCase === undefined) {
-            this[Routes.ON_ROUTE_CASE](parameters);
+            this[ON_ROUTE_CASE](parameters);
         }
         this.slides = CaseSlidesController.create(this.i18n, this.router, parameters);
         Render.toScreen(this.slides, [CasesController.getId(), parameters.slug]);

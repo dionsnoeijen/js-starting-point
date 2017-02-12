@@ -4,12 +4,9 @@ import Header from '../components/Header';
 
 export default class BaseController {
 
-    constructor(i18n, router) {
-
-        this.i18n = i18n;
+    constructor(router, header) {
         this.router = router;
-
-        this.header = new Header(this.i18n, this.router);
+        this.header = header;
     }
 
     render(page) {

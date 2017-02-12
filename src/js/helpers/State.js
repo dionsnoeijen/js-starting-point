@@ -5,15 +5,16 @@ let observe = [];
 
 // Create the initial state
 let state = {
-    navigationInitialized: false
+    navigationInitialized: false,
+    languageNavigationInitialized: false
 };
 
 export function addObservable(observeMe) {
-    console.log(observeMe);
     observe.push(observeMe);
 }
 
 export function dispatch(addState) {
+    console.log(addState);
     actions.push(addState);
     let action = actions[actions.length - 1];
     if (action.data !== undefined) {

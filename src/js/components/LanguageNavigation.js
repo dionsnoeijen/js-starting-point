@@ -1,12 +1,30 @@
 'use strict';
 
 import { NL, EN } from '../config/config';
+import { ON_LANGUAGE_NAVIGATION_CREATED } from '../config/actions';
+import { dispatch, addObservable } from 'helpers/State';
+import I18n from '../helpers/i18n';
 
 export default class LanguageNavigation {
 
-    constructor(i18n, router) {
-        this.i18n = i18n;
+    constructor(router) {
         this.router = router;
+    }
+
+    static create(i18n, router) {
+        let languageNavigation = new LanguageNavigation(i18n, router);
+        addObservable(languageNavigation);
+        dispatch({
+            listener: ON_LANGUAGE_NAVIGATION_CREATED,
+            data: {
+                languageNavigationInitialized: true
+            }
+        });
+        return languageNavigation;
+    }
+
+    [ON_LANGUAGE_NAVIGATION_CREATED](e) {
+        console.log('ON LANGUAGE NAV CREATED', e);
     }
 
     static getId() {
@@ -16,8 +34,8 @@ export default class LanguageNavigation {
     render() {
         return ([
             '<ul id="' + this.constructor.getId() + '">',
-                '<li><a href="'+ this.i18n.getRoute('home', null, NL) +'">' + this.i18n.getTranslation('lang', NL) + '</a></li>',
-                '<li><a href="'+ this.i18n.getRoute('home', null, EN) +'">' + this.i18n.getTranslation('lang', EN) + '</a>',
+                '<li><a href="'+ I18n.getRoute('home', null, NL) +'">' + I18n.getTranslation('lang', NL) + '</a></li>',
+                '<li><a href="'+ I18n.getRoute('home', null, EN) +'">' + I18n.getTranslation('lang', EN) + '</a>',
             '</ul>'
         ]);
     }

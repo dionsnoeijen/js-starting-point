@@ -7,8 +7,8 @@ import { ON_HOME_CONSTRUCTED } from '../config/actions';
 
 export default class HomeController extends BaseController {
 
-    constructor(i18n, router) {
-        super(i18n, router);
+    constructor(i18n, router, header) {
+        super(i18n, router, header);
         this.snap = Snap("#svg");
     }
 
@@ -16,8 +16,8 @@ export default class HomeController extends BaseController {
         return 'home';
     }
 
-    static create(i18n, router) {
-        let home = new HomeController(i18n, router);
+    static create(i18n, router, header) {
+        let home = new HomeController(i18n, router, header);
         addObservable(home);
         dispatch({
             listener: ON_HOME_CONSTRUCTED,
@@ -29,7 +29,7 @@ export default class HomeController extends BaseController {
     }
 
     [ON_HOME_CONSTRUCTED](e) {
-        console.log('ON HOME CONSTRUCTED', e);
+
     }
 
     render() {

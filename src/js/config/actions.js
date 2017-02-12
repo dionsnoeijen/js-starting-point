@@ -13,3 +13,7 @@ export const ON_HOME_CONSTRUCTED = 'onHomeConstructed';
 
 // About actions
 export const ON_ABOUT_CONSTRUCTED = 'onAboutConstructed';
+
+// Navigation events
+export const ON_NAVIGATION_CREATED = 'onNavigationCreated';
+export const ON_LANGUAGE_NAVIGATION_CREATED = 'onLanguageNavigationCreated';

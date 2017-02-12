@@ -1,8 +1,10 @@
 'use strict';
 
 import Navigo from 'navigo';
-import I18n from 'helpers/i18n';
 import Render from 'helpers/Render';
+import Header from 'components/Header';
+import Navigation from 'components/Navigation';
+import LanguageNavigation from 'components/LanguageNavigation';
 import HomeController from 'controllers/HomeController';
 import AboutController from 'controllers/AboutController';
 import CasesController from 'controllers/CasesController';
@@ -29,72 +31,63 @@ import {
  */
 class App {
 
-    constructor(navigo, i18n, routes) {
+    constructor(navigo, routes, header, navigation, languageNavigation) {
         addObservable(this);
         this.router = navigo;
-        this.i18n = i18n;
         this.routes = routes;
+        this.header = header;
+        this.navigation = navigation;
+        this.languageNavigation = languageNavigation;
         this.routes.setUpRoutes();
     }
 
     static create() {
         let router = new Navigo(null, false);
-        let i18n = new I18n();
-        let routes = new Routes(router, i18n);
-        let app = new App(router, i18n, routes);
+        // let i18n = new I18n();
+        let routes = new Routes(router);
+        let navigation = Navigation.create(router);
+        let languageNavigation = LanguageNavigation.create(router);
+        let header = new Header(router, navigation, languageNavigation);
+        let app = new App(
+            router, routes, header, navigation, languageNavigation
+        );
     }
 
     static getId() {
         return 'app';
     }
 
-    initializeNav(component) {
-        let state = getState();
-        if (!state.navigationInitialized) {
-            if (this.nav === undefined) {
-                this.nav = component.header.navigation;
-            }
-            this.nav.events();
-            if (this.langNav === undefined) {
-                this.langNav = component.header.languageNavigation;
-            }
-            this.langNav.events();
-            dispatch({
-                data: {
-                    navigationInitialized: true
-                }
-            });
-        }
-    }
-
     [ON_ROUTE_ABOUT]() {
         if (this.about === undefined) {
-            this.about = AboutController.create(this.i18n, this.router);
+            this.about = AboutController.create(this.router, this.header);
         }
         Render.toScreen(this.about);
-        this.initializeNav(this.about);
-        this.nav.setActive();
+        this.navigation.events();
+        this.languageNavigation.events();
+        this.navigation.setActive();
     }
 
     [ON_ROUTE_CASES]() {
         if (this.cases === undefined) {
-            this.cases = CasesController.create(this.i18n, this.router);
+            this.cases = CasesController.create(this.router, this.header);
         }
         Render.toScreen(this.cases);
         this.cases.events();
-        this.initializeNav(this.cases);
-        this.nav.setActive();
+        this.navigation.events();
+        this.languageNavigation.events();
+        this.navigation.setActive();
     }
 
     [ON_ROUTE_CASE](parameters) {
         if (this.cases === undefined) {
             this[ON_ROUTE_CASES]();
         }
-        this.oneCase = CaseController.create(this.i18n, this.router, parameters);
+        this.oneCase = CaseController.create(this.router, this.header, parameters);
         Render.toScreen(this.oneCase, [CasesController.getId()]);
         this.oneCase.events();
-        this.initializeNav(this.oneCase);
-        this.nav.setActive();
+        this.navigation.events();
+        this.languageNavigation.events();
+        this.navigation.setActive();
     }
 
     [ON_ROUTE_CASE_SLIDES](parameters) {
@@ -104,33 +97,36 @@ class App {
         if (this.oneCase === undefined) {
             this[ON_ROUTE_CASE](parameters);
         }
-        this.slides = CaseSlidesController.create(this.i18n, this.router, parameters);
+        this.slides = CaseSlidesController.create(this.router, this.header, parameters);
         Render.toScreen(this.slides, [CasesController.getId(), parameters.slug]);
         this.slides.events();
-        this.initializeNav(this.slides);
-        this.nav.setActive();
+        this.navigation.events();
+        this.languageNavigation.events();
+        this.navigation.setActive();
     }
 
     [ON_ROUTE_CONTACT]() {
         if (this.contact === undefined) {
-            this.contact = ContactController.create(this.i18n, this.router);
+            this.contact = ContactController.create(this.router, this.header);
         }
         Render.toScreen(this.contact);
-        this.initializeNav(this.contact);
-        this.nav.setActive();
+        this.navigation.events();
+        this.languageNavigation.events();
+        this.navigation.setActive();
     }
 
     [ON_ROUTE_HOME]() {
         if (this.home === undefined) {
-            this.home = HomeController.create(this.i18n, this.router);
+            this.home = HomeController.create(this.router, this.header);
         }
         Render.toScreen(this.home);
-        this.initializeNav(this.home);
-        this.nav.setActive();
+        this.navigation.events();
+        this.languageNavigation.events();
+        this.navigation.setActive();
     }
 
     [ON_ROUTE_NOT_FOUND]() {
-        return new NotFoundController(this.i18n, this.router);
+        return new NotFoundController(this.router, this.header);
     }
 }
 

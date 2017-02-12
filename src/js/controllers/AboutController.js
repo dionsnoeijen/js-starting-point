@@ -6,16 +6,16 @@ import { ON_ABOUT_CONSTRUCTED } from 'config/actions';
 
 export default class AboutController extends BaseController {
 
-    constructor(i18n, router) {
-        super(i18n, router);
+    constructor(router, header) {
+        super(router, header);
     }
 
     static getId() {
         return 'about';
     }
 
-    static create(i18n, router) {
-        let about = new AboutController(i18n, router);
+    static create(router, header) {
+        let about = new AboutController(router, header);
         addObservable(about);
         dispatch({
             listener: ON_ABOUT_CONSTRUCTED,
@@ -27,7 +27,7 @@ export default class AboutController extends BaseController {
     }
 
     [ON_ABOUT_CONSTRUCTED](e) {
-        console.log('ON ABOUT CONSTRUCTED', e);
+
     }
 
     render() {

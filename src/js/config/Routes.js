@@ -1,6 +1,6 @@
 'use strict';
 
-import { dispatch, addObservable } from 'helpers/State';
+import { dispatch } from '../helpers/State';
 import { NL, EN } from 'config/config';
 import {
     ON_ROUTE_HOME,
@@ -11,17 +11,17 @@ import {
     ON_ROUTE_CONTACT,
     ON_ROUTE_NOT_FOUND
 } from './actions';
+import I18n from '../helpers/i18n';
 
 export default class Routes {
 
-    constructor(router, i18n) {
+    constructor(router) {
         this.router = router;
-        this.i18n = i18n;
     }
 
     setUpRoutes() {
         this.router.on({
-            [ this.i18n.getRoute('about', null, EN) ]: () => {
+            [ I18n.getRoute('about', null, EN) ]: () => {
                 dispatch({
                     listener: ON_ROUTE_ABOUT,
                     data: {
@@ -29,7 +29,7 @@ export default class Routes {
                     }
                 });
             },
-            [ this.i18n.getRoute('about', null, NL) ]: () => {
+            [ I18n.getRoute('about', null, NL) ]: () => {
                 dispatch({
                     listener: ON_ROUTE_ABOUT,
                     data: {
@@ -37,7 +37,7 @@ export default class Routes {
                     }
                 });
             },
-            [ this.i18n.getRoute('cases', null, EN) ]: () => {
+            [ I18n.getRoute('cases', null, EN) ]: () => {
                 dispatch({
                     listener: ON_ROUTE_CASES,
                     data: {
@@ -45,7 +45,7 @@ export default class Routes {
                     }
                 });
             },
-            [ this.i18n.getRoute('cases', null, NL) ]: () => {
+            [ I18n.getRoute('cases', null, NL) ]: () => {
                 dispatch({
                     listener: ON_ROUTE_CASES,
                     data: {
@@ -53,7 +53,7 @@ export default class Routes {
                     }
                 });
             },
-            [ this.i18n.getRoute('case', null, EN) ]: (parameters) => {
+            [ I18n.getRoute('case', null, EN) ]: (parameters) => {
                 dispatch({
                     listener: ON_ROUTE_CASE,
                     data: {
@@ -64,7 +64,7 @@ export default class Routes {
                     }
                 });
             },
-            [ this.i18n.getRoute('case', null, NL) ]: (parameters) => {
+            [ I18n.getRoute('case', null, NL) ]: (parameters) => {
                 dispatch({
                     listener: ON_ROUTE_CASE,
                     data: {
@@ -73,7 +73,7 @@ export default class Routes {
                     }
                 });
             },
-            [ this.i18n.getRoute('case.slides', null, EN) ]: (parameters) => {
+            [ I18n.getRoute('case.slides', null, EN) ]: (parameters) => {
                 dispatch({
                     listener: ON_ROUTE_CASE_SLIDES,
                     data: {
@@ -82,7 +82,7 @@ export default class Routes {
                     }
                 });
             },
-            [ this.i18n.getRoute('case.slides', null, NL) ]: (parameters) => {
+            [ I18n.getRoute('case.slides', null, NL) ]: (parameters) => {
                 dispatch({
                     listener: ON_ROUTE_CASE_SLIDES,
                     data: {
@@ -91,7 +91,7 @@ export default class Routes {
                     }
                 });
             },
-            [ this.i18n.getRoute('contact', null, EN) ]: () => {
+            [ I18n.getRoute('contact', null, EN) ]: () => {
                 dispatch({
                     listener: ON_ROUTE_CONTACT,
                     data: {
@@ -99,7 +99,7 @@ export default class Routes {
                     }
                 });
             },
-            [ this.i18n.getRoute('contact', null, NL) ]: () => {
+            [ I18n.getRoute('contact', null, NL) ]: () => {
                 dispatch({
                     listener: ON_ROUTE_CONTACT,
                     data: {
@@ -107,7 +107,7 @@ export default class Routes {
                     }
                 });
             },
-            [ this.i18n.getRoute('home', null, EN) ]: () => {
+            [ I18n.getRoute('home', null, EN) ]: () => {
                 dispatch({
                     listener: ON_ROUTE_HOME,
                     data: {
@@ -115,7 +115,7 @@ export default class Routes {
                     }
                 });
             },
-            [ this.i18n.getRoute('home', null, NL) ]: () => {
+            [ I18n.getRoute('home', null, NL) ]: () => {
                 dispatch({
                     listener: ON_ROUTE_HOME,
                     data: {
@@ -123,8 +123,8 @@ export default class Routes {
                     }
                 });
             },
-            [ this.i18n.getRoute('404', null, EN) ]: () => {
-                if (window.location.pathname !== this.i18n.getRoute('home', null, EN)) {
+            [ I18n.getRoute('404', null, EN) ]: () => {
+                if (window.location.pathname !== I18n.getRoute('home', null, EN)) {
                     dispatch({
                         listener: ON_ROUTE_NOT_FOUND,
                         data: {
@@ -132,9 +132,9 @@ export default class Routes {
                         }
                     });
                 }
-                this.router.navigate(this.i18n.getRoute('home', null, EN), true);
+                this.router.navigate(I18n.getRoute('home', null, EN), true);
             },
-            [ this.i18n.getRoute('404', null, NL) ]: () => {
+            [ I18n.getRoute('404', null, NL) ]: () => {
                 if (window.location.pathname !== '/') {
                     dispatch({
                         listener: ON_ROUTE_NOT_FOUND,
@@ -143,7 +143,7 @@ export default class Routes {
                         }
                     });
                 }
-                this.router.navigate(this.i18n.getRoute('home', null, NL), true);
+                this.router.navigate(I18n.getRoute('home', null, NL), true);
             }
         });
         this.router.resolve();

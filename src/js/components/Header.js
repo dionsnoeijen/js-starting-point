@@ -1,15 +1,26 @@
 'use strict';
 
-import Navigation from './Navigation';
-import LanguageNavigation from './LanguageNavigation';
+import { dispatch, addObservable } from '../helpers/State';
+import I18n from '../helpers/i18n';
 
 export default class Header {
 
-    constructor(i18n, router) {
-        this.i18n = i18n;
-        this.ID = 'header-' + this.i18n.determineLanguage();
-        this.navigation = new Navigation(i18n, router);
-        this.languageNavigation = new LanguageNavigation(i18n, router);
+    constructor(router, navigation, languageNavigation) {
+        this.router = router;
+        this.navigation = navigation;
+        this.languageNavigation = languageNavigation;
+        this.ID = 'header-' + I18n.determineLanguage();
+    }
+
+    static create(router, navigation, languageNavigation) {
+        let header = new Header(router, navigation, languageNavigation);
+        addObservable(header);
+        dispatch({
+             data: {
+                 headerCreated: true
+             }
+        });
+        return header;
     }
 
     render() {

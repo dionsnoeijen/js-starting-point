@@ -8,9 +8,9 @@ let LANG = '';
 
 export default class I18n {
 
-    getTranslation(key, lang) {
+    static getTranslation(key, lang) {
         if (lang === undefined) {
-            this.determineLanguage();
+            I18n.determineLanguage();
         } else {
             LANG = lang;
         }
@@ -24,7 +24,7 @@ export default class I18n {
         }
     }
 
-    determineLanguage() {
+    static determineLanguage() {
         switch (window.location.pathname.split('/')[1]) {
             case NL:
                 LANG = NL;
@@ -39,7 +39,7 @@ export default class I18n {
         return LANG;
     }
 
-    getRoute(key, slug, lang) {
+    static getRoute(key, slug, lang) {
         if (lang !== undefined) {
             LANG = lang;
         }

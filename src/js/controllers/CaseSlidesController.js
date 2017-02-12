@@ -1,14 +1,31 @@
 'use strict';
 
 import BaseController from './BaseController';
+import { dispatch, addObservable } from '../helpers/State';
+import I18n from '../helpers/i18n';
+import { ON_CASE_SLIDES_CONSTRUCTED } from '../config/actions';
 
 export default class CaseSlidesController extends BaseController {
 
-    constructor(i18n, router, parameters) {
-        super(i18n, router);
+    constructor(router, header, parameters) {
+        super(router, header);
+        this.parameters = parameters.parameters;
+    }
 
-        this.parameters = parameters;
-        console.log(i18n.getTranslation('case.slides'), parameters);
+    static create(router, header, parameters) {
+        let caseSlides = new CaseSlidesController(router, header, parameters);
+        addObservable(caseSlides);
+        dispatch({
+            listener: ON_CASE_SLIDES_CONSTRUCTED,
+            data: {
+                [caseSlides.parameters.slug + '-slides-created']: true
+            }
+        });
+        return caseSlides;
+    }
+
+    [ON_CASE_SLIDES_CONSTRUCTED](e) {
+
     }
 
     render() {
@@ -19,7 +36,7 @@ export default class CaseSlidesController extends BaseController {
                     '<li>Slide 1</li>',
                     '<li>Slide 2</li>',
                 '</ul>',
-                '<a id="close" href="' + this.i18n.getRoute('case', this.parameters.slug) + '">Close</a>',
+                '<a id="close" href="' + I18n.getRoute('case', this.parameters.slug) + '">Close</a>',
             '</div>'
         ]);
     }

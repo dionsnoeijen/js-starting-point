@@ -1,4 +1,5 @@
 {
+  "lang": "NL",
   "home": "Home",
   "home.route": "/nl",
   "home.page.id": "home",
@@ -8,8 +9,8 @@
   "case.slides": "Afbeeldingen",
   "case.slides.route": "/nl/project/:slug/afbeeldingen",
   "cases": "Projecten",
-  "cases.page.id": "projecten",
-  "cases.route": "/nl/projecten",
+  "cases.page.id": "project",
+  "cases.route": "/nl/project",
   "about": "Over mij",
   "about.route": "/nl/over-mij",
   "about.page.id": "over-mij",

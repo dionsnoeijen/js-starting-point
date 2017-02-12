@@ -1,8 +1,10 @@
 'use strict';
 
 import Navigo from 'navigo';
-import I18n from 'helpers/i18n';
 import Render from 'helpers/Render';
+import Header from 'components/Header';
+import Navigation from 'components/Navigation';
+import LanguageNavigation from 'components/LanguageNavigation';
 import HomeController from 'controllers/HomeController';
 import AboutController from 'controllers/AboutController';
 import CasesController from 'controllers/CasesController';
@@ -10,127 +12,111 @@ import CaseController from 'controllers/CaseController';
 import CaseSlidesController from 'controllers/CaseSlidesController';
 import ContactController from 'controllers/ContactController';
 import NotFoundController from 'controllers/NotFoundController';
+import Routes from 'config/Routes';
 import { NL, EN } from 'config/config';
+import { dispatch, addObservable, getState } from 'helpers/State';
+import {
+    ON_ROUTE_HOME, ON_ROUTE_ABOUT, ON_ROUTE_CASES,
+    ON_ROUTE_CASE, ON_ROUTE_CASE_SLIDES, ON_ROUTE_CONTACT,
+    ON_ROUTE_NOT_FOUND
+} from 'config/actions';
 
+/**
+ * The App is the entry point of this application
+ * It construct's it's components when demanded and injects dependencies
+ */
 class App {
 
-    constructor() {
-        this.navigationInitialized = false;
-        this.i18n = new I18n();
-        this.router = new Navigo(null, false);
-        this.router.on({
-            [ this.i18n.getRoute('about', null, EN) ]: () => { this.createAbout(); },
-            [ this.i18n.getRoute('about', null, NL) ]: () => { this.createAbout(); },
-            [ this.i18n.getRoute('cases', null, EN) ]: () => { this.createCases(); },
-            [ this.i18n.getRoute('cases', null, NL) ]: () => { this.createCases(); },
-            [ this.i18n.getRoute('case', null, EN) ]: (parameters) => { this.createCase(parameters); },
-            [ this.i18n.getRoute('case', null, NL) ]: (parameters) => { this.createCase(parameters); },
-            [ this.i18n.getRoute('case.slides', null, EN) ]: (parameters) => { this.createCaseSlides(parameters); },
-            [ this.i18n.getRoute('case.slides', null, NL) ]: (parameters) => { this.createCaseSlides(parameters); },
-            [ this.i18n.getRoute('contact', null, EN) ]: () => { this.createContact(); },
-            [ this.i18n.getRoute('contact', null, NL) ]: () => { this.createContact(); },
-            [ this.i18n.getRoute('home', null, EN) ]: () => { this.createHome() },
-            [ this.i18n.getRoute('home', null, NL) ]: () => { this.createHome() },
-            [ this.i18n.getRoute('404', null, EN) ]: () => {
-                if (window.location.pathname !== this.i18n.getRoute('home', null, EN)) {
-                    this.createNotFound();
-                }
-                this.router.navigate(this.i18n.getRoute('home', null, EN), true);
-            },
-            [ this.i18n.getRoute('404', null, NL) ]: () => {
-                if (window.location.pathname !== '/') {
-                    this.createNotFound();
-                }
-                this.router.navigate(this.i18n.getRoute('home', null, NL), true);
-            }
-        });
-        this.router.resolve();
+    constructor(navigo, routes, header, navigation, languageNavigation) {
+        addObservable(this);
+        this.router = navigo;
+        this.routes = routes;
+        this.header = header;
+        this.navigation = navigation;
+        this.languageNavigation = languageNavigation;
+        this.routes.setUpRoutes();
     }
 
-    initializeNav(component) {
-        if (!this.navigationInitialized) {
-            if (this.nav === undefined) {
-                this.nav = component.header.navigation;
-            }
-            this.nav.events();
+    static create() {
+        let router = new Navigo(null, false);
+        let routes = new Routes(router);
+        let navigation = Navigation.create(router);
+        let languageNavigation = LanguageNavigation.create(router);
+        let header = new Header(router, navigation, languageNavigation);
+        return new App(
+            router, routes, header, navigation, languageNavigation
+        );
+    }
+
+    static getId() {
+        return 'app';
+    }
+
+    addEvents(component) {
+        if (component !== undefined) {
+            component.events();
         }
-        this.navigationInitialized = true;
+        this.navigation.events();
+        this.languageNavigation.events();
+        this.navigation.setActive();
     }
 
-    createAbout() {
+    [ON_ROUTE_ABOUT]() {
         if (this.about === undefined) {
-            this.about = new AboutController(this.i18n, this.router);
+            this.about = AboutController.create(this.router, this.header);
         }
         Render.toScreen(this.about);
-        this.initializeNav(this.about);
-        this.nav.setActive();
-        return this.about;
+        this.addEvents();
     }
 
-    createCases() {
+    [ON_ROUTE_CASES]() {
         if (this.cases === undefined) {
-            this.cases = new CasesController(this.i18n, this.router);
+            this.cases = CasesController.create(this.router, this.header);
         }
         Render.toScreen(this.cases);
-        this.cases.events();
-        this.initializeNav(this.cases);
-        this.nav.setActive();
-        return this.cases;
+        this.addEvents(this.cases);
     }
 
-    createCase(parameters) {
-        let casesId = CasesController.getId();
-        if (document.getElementById(casesId) === null) {
-            this.createCases();
+    [ON_ROUTE_CASE](parameters) {
+        if (this.cases === undefined) {
+            this[ON_ROUTE_CASES]();
         }
-        this.oneCase = new CaseController(this.i18n, this.router, parameters)
-        Render.toScreen(this.oneCase, [casesId]);
-        this.oneCase.events();
-        this.initializeNav(this.oneCase);
-        this.nav.setActive();
-        return this.oneCase;
+        this.oneCase = CaseController.create(this.router, this.header, parameters);
+        Render.toScreen(this.oneCase, [CasesController.getId()]);
+        this.addEvents(this.oneCase);
     }
 
-    createCaseSlides(parameters) {
-        let casesId = CasesController.getId();
-        if (document.getElementById(casesId) === null) {
-            this.createCases();
+    [ON_ROUTE_CASE_SLIDES](parameters) {
+        if (this.cases === undefined) {
+            this[ON_ROUTE_CASES]();
         }
-        let caseId = parameters.slug;
-        if (document.getElementById(caseId) === null) {
-            this.createCase(parameters);
+        if (this.oneCase === undefined) {
+            this[ON_ROUTE_CASE](parameters);
         }
-        this.slides = new CaseSlidesController(this.i18n, this.router, parameters);
-        Render.toScreen(this.slides, [casesId, caseId]);
-        this.slides.events();
-        this.initializeNav(this.slides);
-        this.nav.setActive();
-        return this.slides;
+        this.slides = CaseSlidesController.create(this.router, this.header, parameters);
+        Render.toScreen(this.slides, [CasesController.getId(), parameters.slug]);
+        this.addEvents(this.slides);
     }
 
-    createContact() {
+    [ON_ROUTE_CONTACT]() {
         if (this.contact === undefined) {
-            this.contact = new ContactController(this.i18n, this.router);
+            this.contact = ContactController.create(this.router, this.header);
         }
         Render.toScreen(this.contact);
-        this.initializeNav(this.contact);
-        this.nav.setActive();
-        return this.contact;
+        this.addEvents();
     }
 
-    createHome() {
+    [ON_ROUTE_HOME]() {
         if (this.home === undefined) {
-            this.home = new HomeController(this.i18n, this.router);
+            this.home = HomeController.create(this.router, this.header);
         }
         Render.toScreen(this.home);
-        this.initializeNav(this.home);
-        this.nav.setActive();
-        return this.home;
+        this.addEvents();
     }
 
-    createNotFound() {
-        return new NotFoundController(this.i18n, this.router);
+    [ON_ROUTE_NOT_FOUND]() {
+        return new NotFoundController(this.router, this.header);
     }
 }
 
-new App();
+App.create();

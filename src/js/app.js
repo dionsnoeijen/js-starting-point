@@ -43,12 +43,11 @@ class App {
 
     static create() {
         let router = new Navigo(null, false);
-        // let i18n = new I18n();
         let routes = new Routes(router);
         let navigation = Navigation.create(router);
         let languageNavigation = LanguageNavigation.create(router);
         let header = new Header(router, navigation, languageNavigation);
-        let app = new App(
+        return new App(
             router, routes, header, navigation, languageNavigation
         );
     }

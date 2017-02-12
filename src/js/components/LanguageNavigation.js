@@ -24,7 +24,7 @@ export default class LanguageNavigation {
     }
 
     [ON_LANGUAGE_NAVIGATION_CREATED](e) {
-        console.log('ON LANGUAGE NAV CREATED', e);
+
     }
 
     static getId() {

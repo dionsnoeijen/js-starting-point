@@ -64,7 +64,6 @@ export default class Navigation {
     }
 
     render() {
-        console.log('RENDER');
         return ([
             '<nav id="' + this.constructor.getId() + '-' + I18n.determineLanguage() + '">',
                 '<ul>',
@@ -97,9 +96,7 @@ export default class Navigation {
     }
 
     setActive() {
-        console.log('SET ACTIVE');
         let active = this.constructor.getId() + '-' + this.getActive();
-        console.log(active);
         let menu = document.querySelectorAll("nav > ul > li > a");
         Array.from(menu).map(link => {
             link.className = "";

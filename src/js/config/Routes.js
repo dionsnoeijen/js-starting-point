@@ -19,6 +19,10 @@ export default class Routes {
         this.router = router;
     }
 
+    /**
+     * We have a route for each language
+     * Dispatch on hit, dispatching to app.js
+     */
     setUpRoutes() {
         this.router.on({
             [ I18n.getRoute('about', null, EN) ]: () => {

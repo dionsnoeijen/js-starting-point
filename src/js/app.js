@@ -43,9 +43,7 @@ class App {
         let navigation = Navigation.create(router);
         let languageNavigation = LanguageNavigation.create(router);
         let header = new Header(router, navigation, languageNavigation);
-        return new App(
-            router, routes, header, navigation, languageNavigation
-        );
+        return new App(router, routes, header, navigation, languageNavigation);
     }
 
     static getId() {

@@ -1,23 +1,21 @@
 'use strict';
 
 import BaseController from './BaseController';
-import Snap from 'snapsvg';
 import { dispatch, addObservable } from 'helpers/State';
 import { ON_HOME_CONSTRUCTED } from '../config/actions';
 
 export default class HomeController extends BaseController {
 
-    constructor(i18n, router, header) {
-        super(i18n, router, header);
-        this.snap = Snap("#svg");
+    constructor(router, header) {
+        super(router, header);
     }
 
     static getId() {
         return 'home';
     }
 
-    static create(i18n, router, header) {
-        let home = new HomeController(i18n, router, header);
+    static create(router, header) {
+        let home = new HomeController(router, header);
         addObservable(home);
         dispatch({
             listener: ON_HOME_CONSTRUCTED,

@@ -29,11 +29,19 @@ import {
  */
 class App {
 
-    constructor() {
+    constructor(navigo, i18n, routes) {
         addObservable(this);
-        this.router = new Navigo(null, false);
-        this.i18n = new I18n();
-        this.routes = new Routes(this.router, this.i18n);
+        this.router = navigo;
+        this.i18n = i18n;
+        this.routes = routes;
+        this.routes.setUpRoutes();
+    }
+
+    static create() {
+        let router = new Navigo(null, false);
+        let i18n = new I18n();
+        let routes = new Routes(router, i18n);
+        let app = new App(router, i18n, routes);
     }
 
     static getId() {
@@ -126,4 +134,4 @@ class App {
     }
 }
 
-new App();
+App.create();

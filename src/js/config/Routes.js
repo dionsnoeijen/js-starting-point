@@ -17,8 +17,6 @@ export default class Routes {
     constructor(router, i18n) {
         this.router = router;
         this.i18n = i18n;
-
-        this.setUpRoutes();
     }
 
     setUpRoutes() {

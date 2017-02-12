@@ -9,6 +9,7 @@ let state = {
 };
 
 export function addObservable(observeMe) {
+    console.log(observeMe);
     observe.push(observeMe);
 }
 
@@ -19,9 +20,6 @@ export function dispatch(addState) {
         updateState(action.data);
     }
     if (action.listener !== undefined) {
-
-        console.log(action.listener, observe);
-
         observe.map(observable => {
             if (observable[action.listener]) {
                 observable[action.listener](action.data !== undefined ? action.data : null);
@@ -32,8 +30,6 @@ export function dispatch(addState) {
 
 function updateState(newState) {
     state = Object.assign(state, newState);
-
-    console.log(state);
 }
 
 export function getState() {

@@ -7,25 +7,18 @@ import { ON_CASE_CONSTRUCTED } from '../config/actions';
 
 export default class CaseController extends BaseController {
 
-    constructor(router, header, parameters) {
+    constructor(router, header) {
         super(router, header);
-        this.parameters = parameters.parameters;
     }
 
-    static create(router, header, parameters) {
-        let oneCase = new CaseController(router, header, parameters);
+    setParameters(parameters) {
+        this.parameters = parameters;
+    }
+
+    static create(router, header) {
+        let oneCase = new CaseController(router, header);
         addObservable(oneCase);
-        dispatch({
-            listener: ON_CASE_CONSTRUCTED,
-            data: {
-                [oneCase.parameters.slug + '-created']: true
-            }
-        });
         return oneCase;
-    }
-
-    [ON_CASE_CONSTRUCTED](e) {
-
     }
 
     render() {

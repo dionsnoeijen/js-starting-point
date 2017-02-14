@@ -10,8 +10,8 @@ export default class Navigation {
         this.router = router;
     }
 
-    static create(i18n, router) {
-        let navigation = new Navigation(i18n, router);
+    static create(router) {
+        let navigation = new Navigation(router);
         addObservable(navigation);
         dispatch({
             listener: ON_NAVIGATION_CREATED,

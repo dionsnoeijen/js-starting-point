@@ -7,25 +7,18 @@ import { ON_CASE_SLIDES_CONSTRUCTED } from '../config/actions';
 
 export default class CaseSlidesController extends BaseController {
 
-    constructor(router, header, parameters) {
+    constructor(router, header) {
         super(router, header);
-        this.parameters = parameters.parameters;
     }
 
-    static create(router, header, parameters) {
-        let caseSlides = new CaseSlidesController(router, header, parameters);
+    setParameters(parameters) {
+        this.parameters = parameters;
+    }
+
+    static create(router, header) {
+        let caseSlides = new CaseSlidesController(router, header);
         addObservable(caseSlides);
-        dispatch({
-            listener: ON_CASE_SLIDES_CONSTRUCTED,
-            data: {
-                [caseSlides.parameters.slug + '-slides-created']: true
-            }
-        });
         return caseSlides;
-    }
-
-    [ON_CASE_SLIDES_CONSTRUCTED](e) {
-
     }
 
     render() {

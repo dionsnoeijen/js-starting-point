@@ -11,8 +11,8 @@ export default class LanguageNavigation {
         this.router = router;
     }
 
-    static create(i18n, router) {
-        let languageNavigation = new LanguageNavigation(i18n, router);
+    static create(router) {
+        let languageNavigation = new LanguageNavigation(router);
         addObservable(languageNavigation);
         dispatch({
             listener: ON_LANGUAGE_NAVIGATION_CREATED,

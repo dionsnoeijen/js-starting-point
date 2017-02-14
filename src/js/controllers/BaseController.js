@@ -1,7 +1,5 @@
 'use strict';
 
-import Header from '../components/Header';
-
 export default class BaseController {
 
     constructor(router, header) {

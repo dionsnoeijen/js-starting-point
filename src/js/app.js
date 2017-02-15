@@ -56,7 +56,6 @@ class App {
             this[ON_ROUTE_CASES]();
         }
         this.oneCase = Container.getService('controller_case');
-        this.oneCase.setParameters(parameters.parameters);
         Render.toScreen(this.oneCase, [CasesController.getId()]);
         this.addEvents(this.oneCase);
     }

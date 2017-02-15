@@ -20,13 +20,46 @@ export function dispatch(addState) {
     if (action.data !== undefined) {
         updateState(action.data);
     }
+
     if (action.listener !== undefined) {
-        observe.map(observable => {
-            if (observable[action.listener]) {
-                observable[action.listener](action.data !== undefined ? action.data : null);
-            }
-        });
+        if (Array.isArray(action.listener)) {
+            executeMultiple(action);
+            return;
+        }
+        executeSingle(action);
     }
+}
+
+function executeMultiple(action) {
+    observe.map(observable => {
+        for (let key in action.listener) {
+            if (action.listener.hasOwnProperty(key)) {
+                if (observable[action.listener[key]]) {
+                    execute(
+                        observable,
+                        action.listener[key],
+                        action.data !== undefined ? action.data : null
+                    );
+                }
+            }
+        }
+    });
+}
+
+function executeSingle(action) {
+    observe.map(observable => {
+        if (observable[action.listener]) {
+            execute(
+                observable,
+                action.listener,
+                action.data !== undefined ? action.data : null
+            );
+        }
+    });
+}
+
+function execute(instance, func, params) {
+    instance[func](params);
 }
 
 function updateState(newState) {

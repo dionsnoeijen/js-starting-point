@@ -9,7 +9,8 @@ import {
     ON_ROUTE_CASE,
     ON_ROUTE_CASE_SLIDES,
     ON_ROUTE_CONTACT,
-    ON_ROUTE_NOT_FOUND
+    ON_ROUTE_NOT_FOUND,
+    SET_PARAMETERS
 } from './actions';
 import I18n from '../helpers/i18n';
 
@@ -59,7 +60,10 @@ export default class Routes {
             },
             [ I18n.getRoute('case', null, EN) ]: (parameters) => {
                 dispatch({
-                    listener: ON_ROUTE_CASE,
+                    listener: [
+                        ON_ROUTE_CASE,
+                        SET_PARAMETERS
+                    ],
                     data: {
                         parameters: parameters,
                         data: {

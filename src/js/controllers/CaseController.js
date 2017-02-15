@@ -3,7 +3,7 @@
 import BaseController from './BaseController';
 import { dispatch, addObservable } from '../helpers/State';
 import I18n from '../helpers/i18n';
-import { ON_CASE_CONSTRUCTED } from '../config/actions';
+import { SET_PARAMETERS } from '../config/actions';
 
 export default class CaseController extends BaseController {
 
@@ -11,8 +11,8 @@ export default class CaseController extends BaseController {
         super(router, header);
     }
 
-    setParameters(parameters) {
-        this.parameters = parameters;
+    [SET_PARAMETERS](parameters) {
+        this.parameters = parameters.parameters;
     }
 
     static create(router, header) {

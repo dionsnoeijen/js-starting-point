@@ -1,7 +1,7 @@
 'use strict';
 
-import Render from 'helpers/Render';
-import { addObservable } from 'helpers/State';
+import Render from 'framework/Render';
+import { addObservable } from 'framework/State';
 import {
     ON_ROUTE_HOME, ON_ROUTE_ABOUT, ON_ROUTE_CASES,
     ON_ROUTE_CASE, ON_ROUTE_CASE_SLIDES, ON_ROUTE_CONTACT,

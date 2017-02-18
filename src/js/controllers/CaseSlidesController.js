@@ -1,9 +1,9 @@
 'use strict';
 
 import BaseController from './BaseController';
-import { addObservable } from '../helpers/State';
+import { addObservable } from '../framework/State';
 import { SET_PARAMETERS } from '../config/actions';
-import I18n from '../helpers/i18n';
+import I18n from '../framework/I18n';
 import Container from '../framework/Container';
 
 export default class CaseSlidesController extends BaseController {

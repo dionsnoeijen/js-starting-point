@@ -1,8 +1,7 @@
 'use strict';
 
 import BaseController from '../controllers/BaseController';
-import { addObservable } from '../helpers/State';
-import { ON_ABOUT_CONSTRUCTED } from 'config/actions';
+import { addObservable } from '../framework/State';
 
 export default class AboutController extends BaseController {
 

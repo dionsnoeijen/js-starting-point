@@ -1,6 +1,6 @@
 'use strict';
 
-import { dispatch } from '../helpers/State';
+import { dispatch } from '../framework/State';
 import { NL, EN } from 'config/config';
 import {
     ON_ROUTE_HOME,
@@ -12,7 +12,7 @@ import {
     ON_ROUTE_NOT_FOUND,
     SET_PARAMETERS
 } from './actions';
-import I18n from '../helpers/i18n';
+import I18n from '../framework/I18n';
 
 export default class Routes {
 

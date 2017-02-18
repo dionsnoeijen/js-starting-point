@@ -3,11 +3,10 @@
 let actions = [];
 let observe = [];
 
+import { initialState } from '../config/initialState';
+
 // Create the initial state
-let state = {
-    navigationInitialized: false,
-    languageNavigationInitialized: false
-};
+let state = initialState;
 
 export function addObservable(observeMe) {
     observe.push(observeMe);

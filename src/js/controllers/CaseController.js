@@ -1,8 +1,8 @@
 'use strict';
 
 import BaseController from './BaseController';
-import { addObservable } from '../helpers/State';
-import I18n from '../helpers/i18n';
+import { addObservable } from '../framework/State';
+import I18n from '../framework/I18n';
 import { SET_PARAMETERS } from '../config/actions';
 import Container from '../framework/Container';
 

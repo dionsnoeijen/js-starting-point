@@ -1,7 +1,7 @@
 'use strict';
 
 import BaseController from './BaseController';
-import { addObservable } from '../helpers/State';
+import { addObservable } from '../framework/State';
 
 export default class HomeController extends BaseController {
 

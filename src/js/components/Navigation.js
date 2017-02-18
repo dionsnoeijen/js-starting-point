@@ -1,7 +1,7 @@
 'use strict';
 
-import { dispatch, addObservable } from '../helpers/State';
-import I18n from '../helpers/i18n';
+import { dispatch, addObservable } from '../framework/State';
+import I18n from '../framework/I18n';
 import Container from '../framework/Container';
 
 export default class Navigation {

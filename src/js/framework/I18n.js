@@ -1,8 +1,8 @@
 'use strict';
 
-import nl from 'translations/translations.nl.json';
-import en from 'translations/translations.en.json';
-import { NL, EN } from 'config/config';
+import nl from '../translations/translations.nl.json';
+import en from '../translations/translations.en.json';
+import { NL, EN } from '../config/config';
 
 let LANG = '';
 

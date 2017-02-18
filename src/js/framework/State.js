@@ -1,12 +1,11 @@
 'use strict';
 
-let actions = [];
-let observe = [];
-
 import { initialState } from '../config/initialState';
 
 // Create the initial state
-let state = initialState;
+let state = Object.assign({}, initialState);
+let actions = [];
+let observe = [];
 
 export function addObservable(observeMe) {
     observe.push(observeMe);
@@ -65,6 +64,9 @@ function updateState(newState) {
     state = Object.assign(state, newState);
 }
 
-export function getState() {
-    return state;
+export function getState(key) {
+    if (key === undefined) {
+        return state;
+    }
+    return state[key];
 }

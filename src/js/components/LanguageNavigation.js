@@ -1,30 +1,19 @@
 'use strict';
 
 import { NL, EN } from '../config/config';
-import { ON_LANGUAGE_NAVIGATION_CREATED } from '../config/actions';
-import { dispatch, addObservable } from 'helpers/State';
+import { dispatch, addObservable } from '../helpers/State';
 import I18n from '../helpers/i18n';
+import Container from '../framework/Container';
 
 export default class LanguageNavigation {
 
-    constructor(router) {
-        this.router = router;
-    }
-
-    static create(router) {
-        let languageNavigation = new LanguageNavigation(router);
-        addObservable(languageNavigation);
+    constructor() {
+        addObservable(this);
         dispatch({
-            listener: ON_LANGUAGE_NAVIGATION_CREATED,
             data: {
                 languageNavigationInitialized: true
             }
         });
-        return languageNavigation;
-    }
-
-    [ON_LANGUAGE_NAVIGATION_CREATED](e) {
-
     }
 
     static getId() {
@@ -51,6 +40,6 @@ export default class LanguageNavigation {
     onMenuClick(event) {
         event.preventDefault();
         let target = event.target;
-        this.router.navigate(target.getAttribute('href'), true);
+        Container.getService('router').navigate(target.getAttribute('href'), true);
     }
 }

@@ -13,30 +13,21 @@ import CaseSlidesController from '../controllers/CaseSlidesController';
 import ContactController from '../controllers/ContactController';
 import NotFoundController from '../controllers/NotFoundController';
 
+// Set up dependencies
 const navigo = new Navigo(null, false);
 const routes = new Routes(navigo);
-const navigation = Navigation.create(navigo);
-const languageNavigation = LanguageNavigation.create(navigo);
-const header = Header.create(navigo, navigation, languageNavigation);
-const home = HomeController.create(navigo, header);
-const about = AboutController.create(navigo, header);
-const cases = CasesController.create(navigo, header);
-const oneCase = CaseController.create(navigo, header);
-const caseSlides = CaseSlidesController.create(navigo, header);
-const contact = ContactController.create(navigo, header);
-const notFound = NotFoundController.create();
 
 export const services = {
     router: navigo,
     routes: routes,
-    navigation: navigation,
-    language_navigation: languageNavigation,
-    component_header: header,
-    controller_home: home,
-    controller_about: about,
-    controller_cases: cases,
-    controller_case: oneCase,
-    controller_case_slides: caseSlides,
-    controller_contact: contact,
-    controller_not_found: notFound
+    header: new Header(),
+    navigation: new Navigation(),
+    language_navigation: new LanguageNavigation(),
+    controller_home: new HomeController(),
+    controller_about: new AboutController(),
+    controller_cases: new CasesController(),
+    controller_case: new CaseController(),
+    controller_case_slides: new CaseSlidesController(),
+    controller_contact: new ContactController(),
+    controller_not_found: new NotFoundController()
 };

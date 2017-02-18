@@ -74,7 +74,10 @@ export default class Routes {
             },
             [ I18n.getRoute('case', null, NL) ]: (parameters) => {
                 dispatch({
-                    listener: ON_ROUTE_CASE,
+                    listener: [
+                        ON_ROUTE_CASE,
+                        SET_PARAMETERS
+                    ],
                     data: {
                         parameters: parameters,
                         lang: NL
@@ -83,7 +86,10 @@ export default class Routes {
             },
             [ I18n.getRoute('case.slides', null, EN) ]: (parameters) => {
                 dispatch({
-                    listener: ON_ROUTE_CASE_SLIDES,
+                    listener: [
+                        ON_ROUTE_CASE_SLIDES,
+                        SET_PARAMETERS
+                    ],
                     data: {
                         parameters: parameters,
                         lang: EN
@@ -92,7 +98,10 @@ export default class Routes {
             },
             [ I18n.getRoute('case.slides', null, NL) ]: (parameters) => {
                 dispatch({
-                    listener: ON_ROUTE_CASE_SLIDES,
+                    listener: [
+                        ON_ROUTE_CASE_SLIDES,
+                        SET_PARAMETERS
+                    ],
                     data: {
                         parameters: parameters,
                         lang: NL

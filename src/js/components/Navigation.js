@@ -1,33 +1,22 @@
 'use strict';
 
-import { ON_NAVIGATION_CREATED } from '../config/actions';
 import { dispatch, addObservable } from '../helpers/State';
 import I18n from '../helpers/i18n';
+import Container from '../framework/Container';
 
 export default class Navigation {
 
-    constructor(router) {
-        this.router = router;
-    }
-
-    static create(router) {
-        let navigation = new Navigation(router);
-        addObservable(navigation);
+    constructor() {
+        addObservable(this);
         dispatch({
-            listener: ON_NAVIGATION_CREATED,
             data: {
                 navigationInitialized: true
             }
         });
-        return navigation;
     }
 
     static getId() {
         return 'navigation';
-    }
-
-    [ON_NAVIGATION_CREATED](e) {
-
     }
 
     getActive() {
@@ -92,7 +81,7 @@ export default class Navigation {
     onMenuClick(event) {
         event.preventDefault();
         let target = event.target;
-        this.router.navigate(target.getAttribute('href'), true);
+        Container.getService('router').navigate(target.getAttribute('href'), true);
     }
 
     setActive() {

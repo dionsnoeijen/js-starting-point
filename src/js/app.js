@@ -1,7 +1,6 @@
 'use strict';
 
 import Render from 'helpers/Render';
-import CasesController from 'controllers/CasesController';
 import { addObservable } from 'helpers/State';
 import {
     ON_ROUTE_HOME, ON_ROUTE_ABOUT, ON_ROUTE_CASES,
@@ -19,10 +18,6 @@ class App {
     constructor() {
         addObservable(this);
         Container.getService('routes').setUpRoutes();
-    }
-
-    static create() {
-        return new App();
     }
 
     static getId() {
@@ -51,12 +46,12 @@ class App {
         this.addEvents(this.cases);
     }
 
-    [ON_ROUTE_CASE](parameters) {
+    [ON_ROUTE_CASE]() {
         if (this.cases === undefined) {
             this[ON_ROUTE_CASES]();
         }
         this.oneCase = Container.getService('controller_case');
-        Render.toScreen(this.oneCase, [CasesController.getId()]);
+        Render.toScreen(this.oneCase, [Container.getService('controller_cases').constructor.getId()]);
         this.addEvents(this.oneCase);
     }
 
@@ -65,11 +60,10 @@ class App {
             this[ON_ROUTE_CASES]();
         }
         if (this.oneCase === undefined) {
-            this[ON_ROUTE_CASE](parameters);
+            this[ON_ROUTE_CASE]();
         }
         this.slides = Container.getService('controller_case_slides');
-        this.slides.setParameters(parameters.parameters);
-        Render.toScreen(this.slides, [CasesController.getId(), parameters.slug]);
+        Render.toScreen(this.slides, [Container.getService('controller_cases').constructor.getId(), parameters.slug]);
         this.addEvents(this.slides);
     }
 
@@ -92,4 +86,4 @@ class App {
     }
 }
 
-App.create();
+new App();

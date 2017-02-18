@@ -1,24 +1,20 @@
 'use strict';
 
 import BaseController from './BaseController';
-import { dispatch, addObservable } from '../helpers/State';
+import { addObservable } from '../helpers/State';
 import I18n from '../helpers/i18n';
 import { SET_PARAMETERS } from '../config/actions';
+import Container from '../framework/Container';
 
 export default class CaseController extends BaseController {
 
-    constructor(router, header) {
-        super(router, header);
+    constructor() {
+        super();
+        addObservable(this);
     }
 
     [SET_PARAMETERS](parameters) {
         this.parameters = parameters.parameters;
-    }
-
-    static create(router, header) {
-        let oneCase = new CaseController(router, header);
-        addObservable(oneCase);
-        return oneCase;
     }
 
     render() {
@@ -41,6 +37,6 @@ export default class CaseController extends BaseController {
     onSlidesClick(event) {
         event.preventDefault();
         let target = event.target;
-        this.router.navigate(target.getAttribute('href'), true);
+        Container.getService('router').navigate(target.getAttribute('href'), true);
     }
 }

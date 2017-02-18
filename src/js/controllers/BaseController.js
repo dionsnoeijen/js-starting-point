@@ -1,16 +1,13 @@
 'use strict';
 
-export default class BaseController {
+import Container from '../framework/Container';
 
-    constructor(router, header) {
-        this.router = router;
-        this.header = header;
-    }
+export default class BaseController {
 
     render(page) {
         return ([
             '<div id="grid">',
-            ... this.header.render(),
+            ... Container.getService('header').render(),
             ... page === undefined ? [] : page,
             '</div>'
         ]);

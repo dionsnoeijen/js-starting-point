@@ -2,32 +2,25 @@
 
 import { dispatch, addObservable } from '../helpers/State';
 import I18n from '../helpers/i18n';
+import Container from '../framework/Container';
 
 export default class Header {
 
-    constructor(router, navigation, languageNavigation) {
-        this.router = router;
-        this.navigation = navigation;
-        this.languageNavigation = languageNavigation;
-        this.ID = 'header-' + I18n.determineLanguage();
-    }
-
-    static create(router, navigation, languageNavigation) {
-        let header = new Header(router, navigation, languageNavigation);
-        addObservable(header);
+    constructor() {
+        addObservable(this);
         dispatch({
-             data: {
-                 headerCreated: true
-             }
+            data: {
+                headerCreated: true
+            }
         });
-        return header;
+        this.ID = 'header-' + I18n.determineLanguage();
     }
 
     render() {
         return ([
             '<header id="' + this.ID + '">',
-            ... this.navigation.render(),
-            ... this.languageNavigation.render(),
+            ... Container.getService('navigation').render(),
+            ... Container.getService('language_navigation').render(),
             '</header>'
         ]);
     }

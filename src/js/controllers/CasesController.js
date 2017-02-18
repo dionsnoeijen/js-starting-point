@@ -1,30 +1,15 @@
 'use strict';
 
 import BaseController from './BaseController';
-import { dispatch, addObservable } from '../helpers/State';
+import { addObservable } from '../helpers/State';
 import I18n from '../helpers/i18n';
-import { ON_CASES_CONSTRUCTED } from '../config/actions';
+import Container from '../framework/Container';
 
 export default class CasesController extends BaseController {
 
-    constructor(router, header) {
-        super(router, header);
-    }
-
-    static create(router, header) {
-        let cases = new CasesController(router, header);
-        addObservable(cases);
-        dispatch({
-            listener: ON_CASES_CONSTRUCTED,
-            data: {
-                casesCreated: true
-            }
-        });
-        return cases;
-    }
-
-    [ON_CASES_CONSTRUCTED](e) {
-
+    constructor() {
+        super();
+        addObservable(this);
     }
 
     static getId() {
@@ -78,7 +63,7 @@ export default class CasesController extends BaseController {
     onCaseClick(event) {
         event.preventDefault();
         let target = event.target;
-        this.router.navigate(target.getAttribute('href'), true);
+        Container.getService('router').navigate(target.getAttribute('href'), true);
     }
 
 }

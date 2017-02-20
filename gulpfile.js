@@ -20,6 +20,11 @@ var gulp       = require('gulp'),
 
     paths      = require('./paths.json');
 
+var cors = function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+};
+
 // Wee need babel core for mocha, transforms code before testing
 require('babel-core/register');
 
@@ -30,6 +35,11 @@ gulp.task('html', function() {
     return gulp.src(paths.source.html + '/*.html')
         .pipe(gulp.dest('dist'))
         .pipe(livereload());
+});
+
+gulp.task('translations', function() {
+    return gulp.src(paths.source.translations + '/*.json')
+        .pipe(gulp.dest(paths.dest.translations));
 });
 
 gulp.task('js', function() {
@@ -51,7 +61,7 @@ gulp.task('js', function() {
         .pipe(uglify())
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(paths.dest.scripts))
-        .pipe(size({showFiles: true, title: 'javascripts', gzip:false}))
+        .pipe(size({showFiles:true, title:'javascripts', gzip:true}))
         .pipe(livereload());
 });
 
@@ -81,7 +91,10 @@ gulp.task('connect', function() {
     connect.server({
         root: paths.deploy + '/',
         livereload: true,
-        fallback: paths.deploy + '/index.html'
+        fallback: paths.deploy + '/index.html',
+        middleware: function (req, res, next) {
+            return [cors];
+        }
     });
 });
 
@@ -96,4 +109,4 @@ gulp.task('test', function() {
         .pipe(mocha({reporter: 'nyan'}));
 });
 
-gulp.task('default', ['connect', 'html', 'js', 'sass', 'fonts', 'watch']);
+gulp.task('default', ['connect', 'html', 'js', 'translations', 'sass', 'fonts', 'watch']);

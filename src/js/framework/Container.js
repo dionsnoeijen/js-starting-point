@@ -1,9 +1,18 @@
 'use strict';
 
-import { services } from '../config/services';
-
 export default class Container {
+
     static getService(key) {
-        return services[key];
+        if (window.service === undefined) {
+            throw new Error('Set services first');
+        }
+        if (window.service[key] !== undefined) {
+            return window.service[key];
+        }
+        throw new Error('The service you requested does not exist');
+    }
+
+    static getServices() {
+        return window.service;
     }
 };

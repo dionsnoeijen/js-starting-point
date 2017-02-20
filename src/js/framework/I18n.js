@@ -1,12 +1,33 @@
 'use strict';
 
-import nl from '../translations/translations.nl.json';
-import en from '../translations/translations.en.json';
-import { NL, EN } from '../config/config';
-
 let LANG = '';
 
 export default class I18n {
+
+    static fetchLanguages(callback) {
+        let expect = Object.keys(window.languages).length;
+        let loaded = 0;
+        if (window.languages !== undefined) {
+            for (let key in window.languages) {
+                if (window.languages.hasOwnProperty(key)) {
+                    let request = new XMLHttpRequest();
+                    request.addEventListener('load', (data) => {
+                        I18n.setLanguage(key, JSON.parse(data.currentTarget.response));
+                        loaded++;
+                        if (loaded === expect) {
+                            callback();
+                        }
+                    });
+                    request.open('GET', window.languages[key], true);
+                    request.send();
+                }
+            }
+        }
+    }
+
+    static setLanguage(key, data) {
+        I18n[key] = data;
+    }
 
     static getTranslation(key, lang) {
         if (lang === undefined) {
@@ -14,29 +35,18 @@ export default class I18n {
         } else {
             LANG = lang;
         }
-        switch (LANG) {
-            case NL:
-                return nl[key];
-            case EN:
-                return en[key];
-            default:
-                throw new EvalError('Wrong language');
+        if (I18n[LANG] !== undefined && I18n[LANG][key] !== undefined) {
+            return I18n[LANG][key];
         }
+        return false;
     }
 
     static determineLanguage() {
-        switch (window.location.pathname.split('/')[1]) {
-            case NL:
-                LANG = NL;
-                break;
-            case EN:
-                LANG = EN;
-                break;
-            default:
-                LANG = NL;
-                break;
+        let lang = window.location.pathname.split('/')[1];
+        if (window.languages !== undefined && window.languages.hasOwnProperty(lang)) {
+            return lang;
         }
-        return LANG;
+        // throw new EvalError('No language indicator');
     }
 
     static getRoute(key, slug, lang) {
@@ -44,19 +54,13 @@ export default class I18n {
             LANG = lang;
         }
         let translation = '';
-        switch (LANG) {
-            case NL:
-                translation = nl[key + '.route'];
-                break;
-            case EN:
-                translation = en[key + '.route'];
-                break;
-            default:
-                throw new URIError('Cannot find route');
+        if (window.languages !== undefined && window.languages.hasOwnProperty(LANG)) {
+            translation = I18n[LANG][key + '.route'];
+            if (slug !== undefined && slug !== null) {
+                translation = translation.replace(':slug', slug);
+            }
+            return translation;
         }
-        if (slug !== undefined && slug !== null) {
-            translation = translation.replace(':slug', slug);
-        }
-        return translation;
+        return false;
     }
 }

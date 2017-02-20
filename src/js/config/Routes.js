@@ -1,16 +1,11 @@
 'use strict';
 
 import { dispatch } from '../framework/State';
-import { NL, EN } from 'config/config';
+import { NL, EN } from './config';
 import {
-    ON_ROUTE_HOME,
-    ON_ROUTE_ABOUT,
-    ON_ROUTE_CASES,
-    ON_ROUTE_CASE,
-    ON_ROUTE_CASE_SLIDES,
-    ON_ROUTE_CONTACT,
-    ON_ROUTE_NOT_FOUND,
-    SET_PARAMETERS
+    ON_ROUTE_HOME, ON_ROUTE_ABOUT, ON_ROUTE_CASES,
+    ON_ROUTE_CASE, ON_ROUTE_CASE_SLIDES, ON_ROUTE_CONTACT,
+    ON_ROUTE_NOT_FOUND, SET_PARAMETERS
 } from './actions';
 import I18n from '../framework/I18n';
 

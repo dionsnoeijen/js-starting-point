@@ -5,6 +5,7 @@
     "scripts"    : "src/js",
     "images"     : "src/img",
     "fonts"      : "src/fonts",
+    "translations": "src/js/translations",
     "html"       : "src"
   },
   "dest": {
@@ -12,6 +13,7 @@
     "scripts"    : "dist/js",
     "images"     : "dist/img",
     "fonts"      : "dist/fonts",
+    "translations": "dist/js/translations",
     "html"       : "dist"
   }
 }

@@ -50,10 +50,12 @@ export default class Render {
         }
         if (components.length > 0) {
             for (let i in components) {
-                let removeElement = document.getElementById(components[i]);
-                if (removeElement !== null) {
-                    removeElement.parentNode.removeChild(removeElement);
-                    this.unStore(components);
+                if (components.hasOwnProperty(i)) {
+                    let removeElement = document.getElementById(components[i]);
+                    if (removeElement !== null) {
+                        removeElement.parentNode.removeChild(removeElement);
+                        this.unStore(components);
+                    }
                 }
             }
         }
@@ -72,7 +74,6 @@ export default class Render {
         let store = this.store(html);
         if (store.appended.length > 0) {
             let appendToParent = this.getParent(html, store.appended[0]);
-            console.log(store.appended[0]);
             if (appendToParent !== null) {
                 html = html.querySelector('#' + store.appended[0]);
             }

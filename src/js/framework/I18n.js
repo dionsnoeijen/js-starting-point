@@ -44,13 +44,16 @@ export default class I18n {
     static determineLanguage() {
         let lang = window.location.pathname.split('/')[1];
         if (window.languages !== undefined && window.languages.hasOwnProperty(lang)) {
+            LANG = lang;
             return lang;
         }
         // throw new EvalError('No language indicator');
     }
 
     static getRoute(key, slug, lang) {
-        if (lang !== undefined) {
+        if (lang === undefined) {
+            I18n.determineLanguage();
+        } else {
             LANG = lang;
         }
         let translation = '';

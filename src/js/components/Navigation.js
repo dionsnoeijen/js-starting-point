@@ -1,6 +1,6 @@
 'use strict';
 
-import { dispatch, addObservable, getState } from '../framework/State';
+import { dispatch, addObservable } from '../framework/State';
 import I18n from '../framework/I18n';
 import Container from '../framework/Container';
 
@@ -30,24 +30,24 @@ export default class Navigation {
     getNavigation() {
         return [
             {
-                name: I18n.getTranslation('home') || 'home',
-                href: I18n.getRoute('home') || 'home',
-                key: 'navigation-' + (I18n.getTranslation('home.page.id') || 'home')
+                name: I18n.getTranslation('home'),
+                href: I18n.getRoute('home'),
+                key: 'navigation-' + I18n.getTranslation('home.page.id')
             },
             {
-                name: I18n.getTranslation('cases') || 'cases',
-                href: I18n.getRoute('cases') || 'cases',
-                key: 'navigation-' + (I18n.getTranslation('cases.page.id') || 'cases')
+                name: I18n.getTranslation('cases'),
+                href: I18n.getRoute('cases'),
+                key: 'navigation-' + I18n.getTranslation('cases.page.id')
             },
             {
-                name: I18n.getTranslation('about') || 'about',
-                href: I18n.getRoute('about') || 'about',
-                key: 'navigation-' + (I18n.getTranslation('about.page.id') || 'about')
+                name: I18n.getTranslation('about'),
+                href: I18n.getRoute('about'),
+                key: 'navigation-' + I18n.getTranslation('about.page.id')
             },
             {
-                name: I18n.getTranslation('contact') || 'contact',
-                href: I18n.getRoute('contact') || 'contact',
-                key: 'navigation-' + (I18n.getTranslation('contact.page.id') || 'contact')
+                name: I18n.getTranslation('contact'),
+                href: I18n.getRoute('contact'),
+                key: 'navigation-' + I18n.getTranslation('contact.page.id')
             }
         ];
     }
@@ -90,9 +90,7 @@ export default class Navigation {
         Array.from(menu).map(link => {
             link.className = "";
         });
-        console.log('ACTIVE', active);
         let element = document.getElementById(active);
-        console.log('ELEMENT', element);
         document.getElementById(active).className += "active";
     }
 }

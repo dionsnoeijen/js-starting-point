@@ -72,6 +72,7 @@ export default class Render {
         let store = this.store(html);
         if (store.appended.length > 0) {
             let appendToParent = this.getParent(html, store.appended[0]);
+            console.log(store.appended[0]);
             if (appendToParent !== null) {
                 html = html.querySelector('#' + store.appended[0]);
             }

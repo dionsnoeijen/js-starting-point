@@ -7,6 +7,8 @@ import MainController from 'controllers/MainController';
 import { services } from 'config/services';
 import { NL, EN } from 'config/config';
 import I18n from 'framework/I18n';
+import { initialState } from 'config/initialState';
+import { dispatch } from 'framework/State';
 
 window.languages = {
     [ NL ]: '/js/translations/translations.nl.json',
@@ -14,6 +16,14 @@ window.languages = {
 };
 window.service = services;
 
-I18n.fetchLanguages(
-    () => { new MainController(); }
-);
+/**
+ * Bring in the initial state and fetch the languages
+ */
+initialState('/js/initial/initialState.json', data => {
+    dispatch({
+       data: data
+    });
+    I18n.fetchLanguages(
+        () => { new MainController(); }
+    );
+});

@@ -42,6 +42,11 @@ gulp.task('translations', function() {
         .pipe(gulp.dest(paths.dest.translations));
 });
 
+gulp.task('initialState', function() {
+    return gulp.src(paths.source.initial + '/*.json')
+        .pipe(gulp.dest(paths.dest.initial));
+});
+
 gulp.task('js', function() {
     return browserify({
         entries: [paths.source.scripts + '/app.js'],
@@ -109,4 +114,4 @@ gulp.task('test', function() {
         .pipe(mocha({reporter: 'nyan'}));
 });
 
-gulp.task('default', ['connect', 'html', 'js', 'translations', 'sass', 'fonts', 'watch']);
+gulp.task('default', ['connect', 'html', 'js', 'translations', 'initialState', 'sass', 'fonts', 'watch']);

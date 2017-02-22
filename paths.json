@@ -6,6 +6,7 @@
     "images"     : "src/img",
     "fonts"      : "src/fonts",
     "translations": "src/js/translations",
+    "initial"    : "src/js/initial",
     "html"       : "src"
   },
   "dest": {
@@ -14,6 +15,7 @@
     "images"     : "dist/img",
     "fonts"      : "dist/fonts",
     "translations": "dist/js/translations",
+    "initial"    : "dist/js/initial",
     "html"       : "dist"
   }
 }

@@ -1,5 +1,5 @@
 import { assert, expect } from 'chai';
-import Container from '../framework/Container';
+import Container from '../src/js/framework/Container';
 
 describe('Container', () => {
     describe('getService(key)', () => {

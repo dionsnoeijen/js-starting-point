@@ -1,7 +1,7 @@
 'use strict';
 
 import { assert, expect } from 'chai';
-import I18n from '../framework/I18n';
+import I18n from '../src/js/framework/I18n';
 
 describe('I18n', () => {
 

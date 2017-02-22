@@ -7,7 +7,7 @@ import MainController from 'controllers/MainController';
 import { services } from 'config/services';
 import { NL, EN } from 'config/config';
 import I18n from 'framework/I18n';
-import { initialState } from 'config/initialState';
+import { initialState } from 'framework/initialState';
 import { dispatch } from 'framework/State';
 
 window.languages = {

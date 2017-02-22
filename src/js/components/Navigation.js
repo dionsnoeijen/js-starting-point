@@ -54,7 +54,7 @@ export default class Navigation {
 
     render() {
         return ([
-            '<nav id="' + this.constructor.getId() + '-' + I18n.determineLanguage() + '">',
+            '<nav id="' + this.constructor.getId() + '-' + I18n.determineLanguage(window.location) + '">',
                 '<ul>',
                 ... this.getNavigation().map(element => {
                     return ([

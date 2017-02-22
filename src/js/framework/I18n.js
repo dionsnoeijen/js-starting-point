@@ -31,28 +31,27 @@ export default class I18n {
 
     static getTranslation(key, lang) {
         if (lang === undefined) {
-            I18n.determineLanguage();
+            I18n.determineLanguage(window.location);
         } else {
             LANG = lang;
         }
         if (I18n[LANG] !== undefined && I18n[LANG][key] !== undefined) {
             return I18n[LANG][key];
         }
-        return false;
+        return null;
     }
 
-    static determineLanguage() {
-        let lang = window.location.pathname.split('/')[1];
+    static determineLanguage(location) {
+        let lang = location.pathname.split('/')[1];
         if (window.languages !== undefined && window.languages.hasOwnProperty(lang)) {
             LANG = lang;
             return lang;
         }
-        // throw new EvalError('No language indicator');
     }
 
     static getRoute(key, slug, lang) {
         if (lang === undefined) {
-            I18n.determineLanguage();
+            I18n.determineLanguage(window.location);
         } else {
             LANG = lang;
         }

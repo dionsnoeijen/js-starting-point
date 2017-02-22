@@ -25,7 +25,7 @@ describe('Container', () => {
                         return 'owwwww yeah!'
                     }
                 }
-            }
+            };
             assert.equal(
                 Container.getService('awesomeService').method(),
                 'owwwww yeah!'

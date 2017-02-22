@@ -13,7 +13,7 @@ export default class Header {
                 headerCreated: true
             }
         });
-        this.ID = 'header-' + I18n.determineLanguage();
+        this.ID = 'header-' + I18n.determineLanguage(window.location);
     }
 
     render() {

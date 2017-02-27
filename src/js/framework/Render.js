@@ -3,6 +3,9 @@
 export default class Render {
 
     static store(html) {
+        if (html === undefined) {
+            throw Error('No html defined');
+        }
         let result = {
             appended: [],
             deleted: []

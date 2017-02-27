@@ -1,3 +1,5 @@
+'use strict';
+
 import { assert, expect } from 'chai';
 import Container from '../src/js/framework/Container';
 

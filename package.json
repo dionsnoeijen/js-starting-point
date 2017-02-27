@@ -17,6 +17,7 @@
     "babelify": "^7.3.0",
     "browserify": "^13.1.0",
     "chai": "^3.5.0",
+    "chai-spies": "^0.7.1",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-cache": "^0.4.5",

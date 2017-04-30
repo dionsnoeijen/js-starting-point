@@ -17,6 +17,7 @@ var gulp       = require('gulp'),
     livereload = require('gulp-livereload'),
     sourcemaps = require('gulp-sourcemaps'),
     plumber    = require('gulp-plumber'),
+    imagemin   = require('gulp-imagemin'),
 
     paths      = require('./paths.json');
 
@@ -103,6 +104,19 @@ gulp.task('connect', function() {
     });
 });
 
+gulp.task('images', function() {
+
+    return gulp.src([ paths.source.images + '/**/*' ])
+        .pipe(cache( imagemin({
+            optimizationLevel: 3,
+            svgoPlugins: [{removeViewBox: false}],
+            // progressive: true,
+            // interlaced: true
+        })))
+        .pipe(gulp.dest( paths.dest.images ))
+        .pipe(size({showFiles: true, title: 'images', gzip:false}));
+});
+
 gulp.task('fonts', function() {
     return gulp.src([paths.source.fonts + '/**/*'])
         .pipe(gulp.dest(paths.dest.fonts))
@@ -114,4 +128,4 @@ gulp.task('test', function() {
         .pipe(mocha({reporter: 'nyan'}));
 });
 
-gulp.task('default', ['connect', 'html', 'js', 'translations', 'initialState', 'sass', 'fonts', 'watch']);
+gulp.task('default', ['connect', 'html', 'images', 'js', 'translations', 'initialState', 'sass', 'fonts', 'watch']);

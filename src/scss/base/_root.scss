@@ -1,7 +1,30 @@
 html {
-  height: 100%;
+  font: 0.75em/1.5 sans-serif;
+  background-color: #f9f9f9;
+  color: #ffffff;
+  min-height: 100%;
+  overflow: hidden;
 }
 
 body {
   @extend html;
+  margin: 0;
+  padding: 0;
+  background: #444444;
+  height: 100%;
+}
+
+#grid {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition:all 0.3s ease;
+  left: 0;
+  z-index: 2;
+}
+
+#container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }

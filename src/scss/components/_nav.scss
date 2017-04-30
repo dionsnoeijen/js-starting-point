@@ -1,13 +1,130 @@
-/* All navigation styles, including main nav, pagination, next/prev links etc. */
+$navFullScreenWidth: 200px;
+$navBackgroundColor: rgba(#ffffff, .9);
+$gridBackgroundColor: rgba(#C7BCB1, .5);
+$navBaseFontColor: #746B61;
+
+#container_nav {
+  position: absolute;
+  left: -$navFullScreenWidth;
+  top: 0;
+  background: $navBackgroundColor;
+  width: $navFullScreenWidth;
+  height: 100%;
+  transition:all .3s ease;
+  z-index: 3;
+}
 
 nav {
+  position: absolute;
+  top: 50%;
+  left: 30px;
+  margin-top: -50%;
+  z-index: 2;
   ul {
     > li {
+      .hexagon {
+        display: inline-block;
+        position: relative;
+        width: 14px;
+        height: 8.08px;
+        margin: 1px 0;
+        border-left: solid 1px $navBaseFontColor;
+        border-right: solid 1px $navBaseFontColor;
+        transition:all 0.3s ease;
+      }
+      .hexagon:before,
+      .hexagon:after {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        width: 9.90px;
+        height: 9.90px;
+        -webkit-transform: scaleY(0.5774) rotate(-45deg);
+        -ms-transform: scaleY(0.5774) rotate(-45deg);
+        transform: scaleY(0.5774) rotate(-45deg);
+        background-color: inherit;
+        left: 1.0503px;
+      }
+      .hexagon:before {
+        top: -4.9497px;
+        border-top: solid 1.4142px $navBaseFontColor;
+        border-right: solid 1.4142px $navBaseFontColor;
+      }
+      .hexagon:after {
+        bottom: -4.9497px;
+        border-bottom: solid 1.4142px $navBaseFontColor;
+        border-left: solid 1.4142px $navBaseFontColor;
+      }
+      &.active,
+      &.hover {
+        .hexagon {
+          background: $navBaseFontColor;
+          transform: rotate(180deg);
+        }
+      }
+      &.dimm {
+        .hexagon {
+          background: lighten($navBaseFontColor, 30%);
+        }
+      }
       a {
-        &.active {
-          color: #ffd0c1;
+        display: inline-block;
+        padding: 5px;
+        margin-left: 5px;
+        text-transform: uppercase;
+        font-size: 14px;
+        font-weight: normal;
+        color: $navBaseFontColor;
+        &:hover {
+          text-decoration: none;
         }
       }
     }
   }
+}
+
+nav#lang-nav {
+  top: auto;
+  bottom: 20px;
+  ul {
+    li {
+      display: inline-block;
+      padding: 0 10px;
+      a:hover {
+        color: darken($navBaseFontColor, 40%);
+      }
+    }
+  }
+}
+
+#menu-text {
+  transition: all .3s ease;
+  width: 500px;
+  position: absolute;
+  left: 197px;
+  top: 50%;
+  opacity: 0;
+  z-index: 1;
+  > h1 {
+    @include no-select;
+    margin-top: -40px;
+    font-size: 100px;
+    line-height: 0;
+    text-transform: uppercase;
+  }
+  &.opaque {
+    opacity: 1;
+  }
+  &.move-to-left {
+    left: 0;
+  }
+}
+
+#container > #grid.open {
+  left: $navFullScreenWidth;
+  background: $gridBackgroundColor;
+}
+
+#container > #container_nav.open {
+  left: 0;
 }

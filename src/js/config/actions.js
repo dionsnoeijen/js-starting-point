@@ -10,4 +10,6 @@ export const ON_ROUTE_NOT_FOUND = 'onRouteNotFound';
 
 // actions
 export const SET_PARAMETERS = 'setParameters';
-
+export const ON_RENDERED = 'onRendered';
+export const ON_OPEN_MENU = 'onOpenMenu';
+export const ON_CLOSE_MENU = 'onCloseMenu';

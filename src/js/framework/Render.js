@@ -72,7 +72,7 @@ export default class Render {
         return document.querySelector('#' + parent.getAttribute('id'));
     }
 
-    static toScreen(component, keep = []) {
+    static toScreen(component, keep = [], callback) {
         let html = this.parseHTML(component.render().join(''));
         let store = this.store(html);
         if (store.appended.length > 0) {
@@ -84,6 +84,10 @@ export default class Render {
         }
         if (store.deleted.length > 0) {
             this.deleteComponents(store.deleted, keep);
+        }
+
+        if (callback !== undefined) {
+            callback(component);
         }
     }
 

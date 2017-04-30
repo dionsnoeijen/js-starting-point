@@ -5,6 +5,9 @@ import Routes from './Routes';
 import Header from '../components/Header';
 import Navigation from '../components/Navigation';
 import LanguageNavigation from '../components/LanguageNavigation';
+import HomeSlider from '../components/HomeSlider';
+import MenuButton from '../components/MenuButton';
+import MenuText from '../components/MenuText';
 import HomeController from '../controllers/HomeController';
 import AboutController from '../controllers/AboutController';
 import CasesController from '../controllers/CasesController';
@@ -23,11 +26,14 @@ export const services = {
     header: new Header(),
     navigation: new Navigation(),
     language_navigation: new LanguageNavigation(),
+    home_slider: new HomeSlider(),
+    menu_button: new MenuButton(),
+    menu_text: new MenuText(),
     controller_home: new HomeController(),
     controller_about: new AboutController(),
     controller_cases: new CasesController(),
     controller_case: new CaseController(),
     controller_case_slides: new CaseSlidesController(),
     controller_contact: new ContactController(),
-    controller_not_found: new NotFoundController()
+    controller_not_found: new NotFoundController(),
 };

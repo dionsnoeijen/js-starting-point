@@ -48,6 +48,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/Sanity11/kempas#readme",
   "dependencies": {
-    "navigo": "^4.0.0"
+    "navigo": "^4.0.0",
+    "snapsvg": "^0.5.1"
   }
 }

@@ -22,10 +22,12 @@ export default class LanguageNavigation {
 
     render() {
         return ([
-            '<ul id="' + this.constructor.getId() + '">',
-                '<li><a href="'+ I18n.getRoute('home', null, NL) +'">' + I18n.getTranslation('lang', NL) + '</a></li>',
-                '<li><a href="'+ I18n.getRoute('home', null, EN) +'">' + I18n.getTranslation('lang', EN) + '</a>',
-            '</ul>'
+            '<nav id="' + this.constructor.getId() + '">',
+                '<ul>',
+                    '<li><a href="'+ I18n.getRoute('home', null, NL) +'">' + I18n.getTranslation('lang', NL) + '</a></li>',
+                    '<li><a href="'+ I18n.getRoute('home', null, EN) +'">' + I18n.getTranslation('lang', EN) + '</a>',
+                '</ul>',
+            '</nav>'
         ]);
     }
 

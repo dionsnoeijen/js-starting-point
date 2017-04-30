@@ -13,14 +13,16 @@ export default class Header {
                 headerCreated: true
             }
         });
-        this.ID = 'header-' + I18n.determineLanguage(window.location);
+    }
+
+    static getId() {
+        return 'header-' + I18n.determineLanguage(window.location);
     }
 
     render() {
         return ([
-            '<header id="' + this.ID + '">',
-            ... Container.getService('navigation').render(),
-            ... Container.getService('language_navigation').render(),
+            '<header id="' + this.constructor.getId() + '">',
+            ... Container.getService('menu_button').render(),
             '</header>'
         ]);
     }

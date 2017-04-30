@@ -1,12 +1,11 @@
 'use strict';
 
-import BaseController from './BaseController';
 import { addObservable } from '../framework/State';
+import Container from '../framework/Container';
 
-export default class HomeController extends BaseController {
+export default class HomeController {
 
     constructor() {
-        super();
         addObservable(this);
     }
 
@@ -15,10 +14,16 @@ export default class HomeController extends BaseController {
     }
 
     render() {
-        return super.render([
-            '<div id="' + this.constructor.getId() + '">',
-            '<hr />',
-            '<p>Home</p>',
+        return ([
+            '<div id="container">',
+                '<div id="container_nav">',
+                ... Container.getService('navigation').render(),
+                ... Container.getService('language_navigation').render(),
+                '</div>',
+                '<div id="grid">',
+                ... Container.getService('header').render(),
+                '</div>',
+                ... Container.getService('home_slider').render(),
             '</div>'
         ]);
     }

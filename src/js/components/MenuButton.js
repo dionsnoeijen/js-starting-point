@@ -8,6 +8,7 @@ export default class MenuButton {
 
     constructor() {
         addObservable(this);
+        this.SVG_ANIMATION_ID = 'menu-button_animation';
         this.animationInitialized = false;
         this.isCross = false;
         this.buttonClick = this.onButtonClick.bind(this);
@@ -21,7 +22,7 @@ export default class MenuButton {
 
     [ON_RENDERED]() {
         if (!this.animationInitialized) {
-            this.button = document.querySelector('#menu-button_animation');
+            this.button = document.querySelector('#' + this.SVG_ANIMATION_ID);
             this.drawSvg();
             this.animationInitialized = true;
         }
@@ -92,7 +93,7 @@ export default class MenuButton {
     }
 
     drawSvg() {
-        this.snap = new Snap('#menu-button_animation');
+        this.snap = new Snap('#' + this.SVG_ANIMATION_ID);
         this.svgInitialState();
     }
 
@@ -138,7 +139,7 @@ export default class MenuButton {
     render() {
         return ([
             '<div id="' + this.constructor.getId() + '">',
-            '<svg id="menu-button_animation"></svg>',
+            '<svg id="' + this.SVG_ANIMATION_ID + '"></svg>',
             '</div>'
         ]);
     }

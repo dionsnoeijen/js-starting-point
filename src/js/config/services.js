@@ -1,6 +1,7 @@
 'use strict';
 
 import Navigo from 'navigo';
+import Screen from '../framework/Screen';
 import Routes from './Routes';
 import Header from '../components/Header';
 import Navigation from '../components/Navigation';
@@ -8,6 +9,7 @@ import LanguageNavigation from '../components/LanguageNavigation';
 import HomeSlider from '../components/HomeSlider';
 import MenuButton from '../components/MenuButton';
 import MenuText from '../components/MenuText';
+import HexagonHomePattern from '../components/HexagonHomePattern';
 import HomeController from '../controllers/HomeController';
 import AboutController from '../controllers/AboutController';
 import CasesController from '../controllers/CasesController';
@@ -20,6 +22,8 @@ import NotFoundController from '../controllers/NotFoundController';
 const navigo = new Navigo(null, false);
 const routes = new Routes(navigo);
 
+const screen = new Screen();
+
 export const services = {
     router: navigo,
     routes: routes,
@@ -29,6 +33,7 @@ export const services = {
     home_slider: new HomeSlider(),
     menu_button: new MenuButton(),
     menu_text: new MenuText(),
+    hexagon_home_pattern: new HexagonHomePattern(screen),
     controller_home: new HomeController(),
     controller_about: new AboutController(),
     controller_cases: new CasesController(),

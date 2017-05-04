@@ -22,6 +22,7 @@ export default class HomeController {
                 '</div>',
                 '<div id="grid">',
                 ... Container.getService('header').render(),
+                ... Container.getService('hexagon_home_pattern').render(),
                 '</div>',
                 ... Container.getService('home_slider').render(),
             '</div>'

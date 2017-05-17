@@ -1,4 +1,9 @@
 {
   "navigationInitialized": false,
-  "languageNavigationInitialized": false
+  "languageNavigationInitialized": false,
+  "homeSlides": [
+    "img/slider-1.jpg",
+    "img/slider-2.jpg",
+    "img/slider-3.jpg"
+  ]
 }

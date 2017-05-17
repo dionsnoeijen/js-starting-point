@@ -1,5 +1,8 @@
+$navBaseFontColor: rgba(214, 217, 222, 1);
+
 #home-slider {
-  position: fixed;
+  position: absolute;
+  transition:all .5s ease;
   top: -50%;
   left: -50%;
   width: 200%;
@@ -9,6 +12,7 @@
 
 #home-slider > img {
   position: absolute;
+  transition:all .5s ease;
   top: 0;
   left: 0;
   right: 0;
@@ -17,4 +21,108 @@
   min-width: 50%;
   min-height: 50%;
   overflow-x: hidden;
+}
+
+#home-slider > img.active {
+  opacity: 1;
+  left: 0;
+  right: 0;
+}
+
+#home-slider > img.inactive-left {
+  opacity: 0;
+  left: -200px;
+}
+
+#home-slider > img.inactive-right {
+  opacity: 0;
+  right: -200px;
+}
+
+#home-slider.ready {
+  left: 0;
+  opacity: 0;
+}
+
+#home-slider.in {
+  left: -50%;
+  opacity: 1;
+}
+
+#home-slider.out {
+  left: -100%;
+  opacity: 0;
+}
+
+#home-slider-controls {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: 100px;
+  ul {
+    margin-left: -50%;
+    li {
+      margin: 0;
+      padding: 0;
+      display: inline-block;
+      padding: 4px;
+      .hexagon {
+        display: inline-block;
+        position: relative;
+        width: 14px;
+        height: 8.08px;
+        margin: 1px 0;
+        border-left: solid 1px $navBaseFontColor;
+        border-right: solid 1px $navBaseFontColor;
+        transition:all 0.3s ease;
+      }
+      .hexagon:before,
+      .hexagon:after {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        width: 9.90px;
+        height: 9.90px;
+        -webkit-transform: scaleY(0.5774) rotate(-45deg);
+        -ms-transform: scaleY(0.5774) rotate(-45deg);
+        transform: scaleY(0.5774) rotate(-45deg);
+        background-color: inherit;
+        left: 1.0503px;
+      }
+      .hexagon:before {
+        top: -4.9497px;
+        border-top: solid 1.4142px $navBaseFontColor;
+        border-right: solid 1.4142px $navBaseFontColor;
+      }
+      .hexagon:after {
+        bottom: -4.9497px;
+        border-bottom: solid 1.4142px $navBaseFontColor;
+        border-left: solid 1.4142px $navBaseFontColor;
+      }
+      &.active,
+      &.hover {
+        .hexagon {
+          background: $navBaseFontColor;
+          transform: rotate(180deg);
+        }
+      }
+      &.dimm {
+        .hexagon {
+          background: lighten($navBaseFontColor, 30%);
+        }
+      }
+      a {
+        display: inline-block;
+        padding: 4px;
+        margin-left: 5px;
+        text-transform: uppercase;
+        font-size: 14px;
+        font-weight: normal;
+        color: $navBaseFontColor;
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
 }

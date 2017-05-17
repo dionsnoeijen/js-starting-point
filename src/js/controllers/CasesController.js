@@ -1,7 +1,7 @@
 'use strict';
 
 import BaseController from './BaseController';
-import { addObservable } from '../framework/State';
+import { dispatch, addObservable } from '../framework/State';
 import I18n from '../framework/I18n';
 import Container from '../framework/Container';
 
@@ -35,19 +35,18 @@ export default class CasesController extends BaseController {
 
     render() {
         return super.render([
-            '<div id="' + this.constructor.getId() + '">',
-            '<hr />',
-            '<ul>',
-            ... this.getCases().map(element => {
-                return ([
-                    '<li>',
-                    '<a href="' + element.href +'">',
-                    element.name,
-                    '</a>',
-                    '</li>'
-                ].join(''));
-            }),
-            '</ul>',
+            '<div id="' + this.constructor.getId() + '" class="ready">',
+                '<ul>',
+                ... this.getCases().map(element => {
+                    return ([
+                        '<li>',
+                        '<a href="' + element.href +'">',
+                        element.name,
+                        '</a>',
+                        '</li>'
+                    ].join(''));
+                }),
+                '</ul>',
             '</div>'
         ]);
     }

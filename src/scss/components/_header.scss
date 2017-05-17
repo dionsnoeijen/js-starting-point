@@ -1,6 +1,22 @@
+$homeBackground: rgba(222, 141, 86, .8);
+
 #grid header {
-  position: absolute;
+  z-index: 3;
+  position: relative;
+  height: 50px;
+  border-bottom: 1px solid #ffffff;
+}
+// The home color layer might have to move to a svg
+#home-color-layer {
   z-index: 2;
-  left: 0;
+  background-color: $homeBackground;
+  mix-blend-mode: color-burn;
+  height: 50px;
   top: 0;
+  position: absolute;
+  width: 100%;
+}
+
+#menu-button {
+  height: 50px;
 }

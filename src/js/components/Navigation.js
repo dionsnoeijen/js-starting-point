@@ -3,7 +3,7 @@
 import { dispatch, addObservable } from '../framework/State';
 import I18n from '../framework/I18n';
 import Container from '../framework/Container';
-import { ON_OPEN_MENU } from '../config/actions';
+import { ON_OPEN_MENU, ON_NAVIGATE } from '../config/actions';
 
 export default class Navigation {
 
@@ -21,14 +21,6 @@ export default class Navigation {
 
     static getId() {
         return 'navigation';
-    }
-
-    getActive() {
-        let locations = window.location.pathname.split('/');
-        if (locations[2] === undefined) {
-            return I18n.getTranslation('home.page.id');
-        }
-        return locations[2];
     }
 
     getNavigation() {
@@ -95,7 +87,12 @@ export default class Navigation {
     onMenuClick(event) {
         event.preventDefault();
         let target = event.target;
-        Container.getService('router').navigate(target.getAttribute('href'), true);
+        dispatch({
+            listener: ON_NAVIGATE,
+            data: {
+                href: target.getAttribute('href')
+            }
+        });
         let dimm = document.querySelector('nav > ul > li.dimm');
         dimm.classList.remove('dimm');
         Container.getService('menu_text').toggleActive();
@@ -127,6 +124,14 @@ export default class Navigation {
         if (!Container.getService('menu_text').containsActive()) {
             Container.getService('menu_text').toggleOpaque();
         }
+    }
+
+    getActive() {
+        let locations = window.location.pathname.split('/');
+        if (locations[2] === undefined) {
+            return I18n.getTranslation('home.page.id');
+        }
+        return locations[2];
     }
 
     setActive() {

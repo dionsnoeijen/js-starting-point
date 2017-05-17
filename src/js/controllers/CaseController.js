@@ -17,10 +17,13 @@ export default class CaseController extends BaseController {
         this.parameters = parameters.parameters;
     }
 
+    static getId() {
+        return 'case';
+    }
+
     render() {
         return super.render([
             '<div id="' + this.parameters.slug + '">',
-                '<hr />',
                 '<p>Case ' + this.parameters.slug + ' <a href="' + I18n.getRoute('case.slides', this.parameters.slug) + '">Slides</a></p>',
             '</div>'
         ]);

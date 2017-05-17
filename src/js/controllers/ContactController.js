@@ -17,7 +17,6 @@ export default class ContactController extends BaseController{
     render() {
         return super.render([
             '<div id="' + this.constructor.getId() + '">',
-                '<hr />',
                 '<p>Contact</p>',
             '</div>'
         ]);

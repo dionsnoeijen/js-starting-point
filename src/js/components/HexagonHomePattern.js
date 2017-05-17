@@ -2,22 +2,18 @@
 
 import Snap from 'snapsvg';
 import { addObservable } from '../framework/State';
-import Hexagon from './Hexagon';
 import { ON_RENDERED } from '../config/actions';
+import HomeController from '../controllers/HomeController';
 
 export default class HexagonHomePattern {
 
     constructor(screen) {
         addObservable(this);
         this.SVG_ANIMATION_ID = 'hexagon-pattern_animation';
-        this.initialized = false;
         this.screen = screen;
         this.screen.addEventListener('resize', this.onScreenResize.bind(this));
-        this.polygons = [];
-        this.lines = [];
         this.top = 50;
         this.polygonHeight = 173.25;
-        this.polygonPositions();
     }
 
     polygonPositions() {
@@ -60,8 +56,13 @@ export default class HexagonHomePattern {
         return 'hexagon-pattern';
     }
 
-    [ON_RENDERED]() {
-        if (!this.initialized) {
+    [ON_RENDERED](data) {
+        if (data.component.constructor.getId() === HomeController.getId()) {
+            this.polygons = [];
+            this.lines = [];
+            if (this.snap !== undefined) {
+                delete this.snap;
+            }
             this.snap = new Snap('#' + this.SVG_ANIMATION_ID);
             this.drawSvg();
             this.initialized = true;
@@ -69,7 +70,6 @@ export default class HexagonHomePattern {
     }
 
     onScreenResize() {
-        this.polygonPositions();
         this.drawSvg();
     }
 
@@ -80,7 +80,6 @@ export default class HexagonHomePattern {
             strokeWidth: .5,
             fill: 'transparent'
         });
-
         return polygon;
     }
 
@@ -95,7 +94,15 @@ export default class HexagonHomePattern {
     }
 
     drawSvg() {
+        this.polygonPositions();
         let spacing = this.polygonHeight / 2;
+        if (this.topLine === undefined) {
+            this.topLine = this.snap.paper.line(0, 0, 0, 0);
+            this.topLine.attr({
+                stroke: "rgba(214, 217, 222, 1)",
+                strokeWidth: .5
+            });
+        }
         for (let i in this.positions) {
             if (this.positions.hasOwnProperty(i)) {
                 if (this.polygons[i] === undefined) {
@@ -120,7 +127,7 @@ export default class HexagonHomePattern {
     render() {
         return([
             '<div id="' + this.constructor.getId() + '">',
-            '<svg id="' + this.SVG_ANIMATION_ID + '"></svg>',
+                '<svg id="' + this.SVG_ANIMATION_ID + '"></svg>',
             '</div>'
         ]);
     }

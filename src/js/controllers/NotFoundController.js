@@ -17,7 +17,6 @@ export default class NotFoundController extends BaseController {
     render() {
         return super.render([
             '<div id="' + this.constructor.getId() + '">',
-            '<hr />',
             '<p>Oops 404 Not Found</p>',
             '</div>'
         ]);

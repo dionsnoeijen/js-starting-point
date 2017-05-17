@@ -17,7 +17,6 @@ export default class AboutController extends BaseController {
     render() {
         return super.render([
             '<div id="' + this.constructor.getId() +'">',
-            '<hr />',
             '<p>ABOUT</p>',
             '</div>'
         ]);

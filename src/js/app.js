@@ -3,7 +3,7 @@
 /**
  * Application bootstrapping
  */
-import MainController from 'controllers/MainController';
+import Container from 'framework/Container';
 import { services } from 'config/services';
 import { NL, EN } from 'config/config';
 import I18n from 'framework/I18n';
@@ -24,6 +24,6 @@ initialState('/js/initial/initialState.json', data => {
        data: data
     });
     I18n.fetchLanguages(
-        () => { new MainController(); }
+        () => { Container.getService('routes').setUpRoutes(); }
     );
 });

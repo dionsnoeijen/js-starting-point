@@ -21,12 +21,21 @@ import CaseController from '../controllers/CaseController';
 import CaseSlidesController from '../controllers/CaseSlidesController';
 import ContactController from '../controllers/ContactController';
 import NotFoundController from '../controllers/NotFoundController';
+import MainController from 'controllers/MainController';
 
 // Set up dependencies
 const navigo = new Navigo(null, false);
 const routes = new Routes(navigo);
 
 const screen = new Screen();
+
+const homeController = new HomeController();
+const aboutController = new AboutController();
+const casesController = new CasesController();
+const caseController = new CaseController();
+const caseSlidesController = new CaseSlidesController();
+const contactController = new ContactController();
+const notFoundController = new NotFoundController();
 
 export const services = {
     router: navigo,
@@ -43,11 +52,20 @@ export const services = {
     home_color_layer: new HomeColorLayer(screen, HomeController.getId()),
 
     // Controllers
-    [HomeController.getId()]: new HomeController(),
-    [AboutController.getId()]: new AboutController(),
-    [CasesController.getId()]: new CasesController(),
-    [CaseController.getId()]: new CaseController(),
-    [CaseSlidesController.getId()]: new CaseSlidesController(),
-    [ContactController.getId()]: new ContactController(),
-    [NotFoundController.getId()]: new NotFoundController()
+    [HomeController.getId()]: homeController,
+    [AboutController.getId()]: aboutController,
+    [CasesController.getId()]: casesController,
+    [CaseController.getId()]: caseController,
+    [CaseSlidesController.getId()]: caseSlidesController,
+    [ContactController.getId()]: contactController,
+    [NotFoundController.getId()]: notFoundController,
+    main_controller: new MainController(
+        homeController,
+        aboutController,
+        casesController,
+        caseController,
+        caseSlidesController,
+        contactController,
+        notFoundController
+    )
 };

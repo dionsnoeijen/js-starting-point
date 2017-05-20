@@ -6,26 +6,29 @@ import {
     ON_ROUTE_HOME, ON_ROUTE_ABOUT, ON_ROUTE_CASES,
     ON_ROUTE_CASE, ON_ROUTE_CASE_SLIDES, ON_ROUTE_CONTACT,
     ON_ROUTE_NOT_FOUND, ON_RENDERED, ON_OPEN_MENU,
-    ON_CLOSE_MENU, ON_NAVIGATE, EVENTS
+    ON_CLOSE_MENU, ON_NAVIGATE
 } from '../config/actions';
 import Container from '../framework/Container';
-import AboutController from "./AboutController";
-import CasesController from "./CasesController";
-import CaseController from "./CaseController";
-import CaseSlidesController from "./CaseSlidesController";
-import ContactController from "./ContactController";
-import HomeController from "./HomeController";
-import NotFoundController from "./NotFoundController";
 
 export default class MainController {
 
-    constructor() {
+    constructor(
+        homeController,
+        aboutController,
+        casesController,
+        caseController,
+        caseSlidesController,
+        contactController,
+        notFoundController
+    ) {
         addObservable(this);
-        Container.getService('routes').setUpRoutes();
-    }
-
-    static getId() {
-        return 'app';
+        this.homeController = homeController;
+        this.aboutController = aboutController;
+        this.casesController = casesController;
+        this.caseController = caseController;
+        this.caseSlidesController = caseSlidesController;
+        this.contactController = contactController;
+        this.notFoundController = notFoundController;
     }
 
     rendered(component) {
@@ -77,21 +80,20 @@ export default class MainController {
     }
 
     [ON_ROUTE_ABOUT]() {
-        let about = Container.getService(AboutController.getId());
-        Render.toScreen(about, [], this.rendered.bind(this));
+        Render.toScreen(this.aboutController, [], this.rendered.bind(this));
     }
 
     [ON_ROUTE_CASES]() {
-        this.cases = Container.getService(CasesController.getId());
-        Render.toScreen(this.cases, [], this.rendered.bind(this));
+        this.cases = this.casesController;
+        Render.toScreen(this.casesController, [], this.rendered.bind(this));
     }
 
     [ON_ROUTE_CASE]() {
         if (this.cases === undefined) {
             this[ON_ROUTE_CASES]();
         }
-        this.oneCase = Container.getService(CaseController.getId());
-        Render.toScreen(this.oneCase, [Container.getService(CasesController.getId()).constructor.getId()], this.rendered.bind(this));
+        this.oneCase = this.caseController;
+        Render.toScreen(this.caseController, [this.casesController.constructor.getId()], this.rendered.bind(this));
     }
 
     [ON_ROUTE_CASE_SLIDES](parameters) {
@@ -101,11 +103,11 @@ export default class MainController {
         if (this.oneCase === undefined) {
             this[ON_ROUTE_CASE]();
         }
-        this.slides = Container.getService(CaseSlidesController.getId());
+        this.slides = this.caseSlidesController;
         Render.toScreen(
             this.slides,
             [
-                Container.getService(CasesController.getId()).constructor.getId(),
+                this.casesController.constructor.getId(),
                 parameters.slug
             ],
             this.rendered.bind(this)
@@ -114,17 +116,14 @@ export default class MainController {
     }
 
     [ON_ROUTE_CONTACT]() {
-        let contact = Container.getService(ContactController.getId());
-        Render.toScreen(contact, [], this.rendered.bind(this));
+        Render.toScreen(this.contactController, [], this.rendered.bind(this));
     }
 
     [ON_ROUTE_HOME]() {
-        let home = Container.getService(HomeController.getId());
-        Render.toScreen(home, [], this.rendered.bind(this));
+        Render.toScreen(this.homeController, [], this.rendered.bind(this));
     }
 
     [ON_ROUTE_NOT_FOUND]() {
-        let notFound = Container.getService(NotFoundController.getId());
-        Render.toScreen(notFound, [], this.rendered.bind(this));
+        Render.toScreen(this.notFoundController, [], this.rendered.bind(this));
     }
 }

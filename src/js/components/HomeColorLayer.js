@@ -1,7 +1,7 @@
 'use strict';
 
 import Snap from 'snapsvg';
-import { addObservable } from '../framework/State';
+import { addObservable, getState } from '../framework/State';
 import { ON_RENDERED } from '../config/actions';
 import Container from '../framework/Container';
 
@@ -19,8 +19,7 @@ export default class HomeColorLayer {
     }
 
     [ON_RENDERED](data) {
-        this.currentPage = data.component.constructor.getId();
-        if (this.currentPage === this.renderId) {
+        if (data.component.constructor.getId() === this.renderId) {
             this.shapes = [];
             if (this.snap !== undefined) {
                 delete this.snap;
@@ -31,7 +30,7 @@ export default class HomeColorLayer {
     }
 
     onScreenResize() {
-        if (this.currentPage === this.renderId) {
+        if (getState('activePage') === this.renderId) {
             this.drawSvg();
         }
     }

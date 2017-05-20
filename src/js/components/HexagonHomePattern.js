@@ -1,7 +1,7 @@
 'use strict';
 
 import Snap from 'snapsvg';
-import { addObservable } from '../framework/State';
+import { addObservable, getState } from '../framework/State';
 import { ON_RENDERED } from '../config/actions';
 import Container from '../framework/Container';
 
@@ -20,8 +20,7 @@ export default class HexagonHomePattern {
     }
 
     [ON_RENDERED](data) {
-        this.currentPage = data.component.constructor.getId();
-        if (this.currentPage === this.renderId) {
+        if (data.component.constructor.getId() === this.renderId) {
             this.polygons = [];
             this.lines = [];
             if (this.snap !== undefined) {
@@ -33,7 +32,7 @@ export default class HexagonHomePattern {
     }
 
     onScreenResize() {
-        if (this.currentPage === this.renderId) {
+        if (getState('activePage') === this.renderId) {
             this.drawSvg();
         }
     }

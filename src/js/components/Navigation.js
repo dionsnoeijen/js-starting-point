@@ -99,7 +99,7 @@ export default class Navigation {
         setTimeout(() => {
             Container.getService('menu_text').toggleMoveToLeft();
             Container.getService('menu_text').toggleActive();
-            Container.getService('menu_text').toggleOpaque();
+            Container.getService('menu_text').removeOpaque();
         }, 2000);
         this.setActive();
     }
@@ -112,7 +112,7 @@ export default class Navigation {
             active.classList.add('dimm');
         }
         Container.getService('menu_text').updateTitle(event.target.innerHTML);
-        Container.getService('menu_text').toggleOpaque();
+        Container.getService('menu_text').addOpaque();
     }
 
     onMenuMouseLeave(event) {
@@ -122,7 +122,7 @@ export default class Navigation {
         active.classList.remove('dimm');
 
         if (!Container.getService('menu_text').containsActive()) {
-            Container.getService('menu_text').toggleOpaque();
+            Container.getService('menu_text').removeOpaque();
         }
     }
 

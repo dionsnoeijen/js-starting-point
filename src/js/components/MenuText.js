@@ -34,6 +34,10 @@ export default class MenuText {
         return this.menuText.classList.toggle(this.OPAQUE);
     }
 
+    removeOpaque() {
+        this.menuText.classList.remove(this.OPAQUE);
+    }
+
     addOpaque() {
         this.menuText.classList.add(this.OPAQUE);
     }

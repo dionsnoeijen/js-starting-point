@@ -12,6 +12,7 @@ import MenuButton from '../components/MenuButton';
 import MenuText from '../components/MenuText';
 import HexagonHomePattern from '../components/HexagonHomePattern';
 import HomeColorLayer from '../components/HomeColorLayer';
+import HomeHexagonHelper from '../components/HomeHexagonHelper';
 
 import HomeController from '../controllers/HomeController';
 import AboutController from '../controllers/AboutController';
@@ -37,8 +38,9 @@ export const services = {
     home_slider_controls: new HomeSliderControls(),
     menu_button: new MenuButton(),
     menu_text: new MenuText(),
-    hexagon_home_pattern: new HexagonHomePattern(screen),
-    home_color_layer: new HomeColorLayer(),
+    home_hexagon_helper: new HomeHexagonHelper(screen),
+    hexagon_home_pattern: new HexagonHomePattern(screen, HomeController.getId()),
+    home_color_layer: new HomeColorLayer(screen, HomeController.getId()),
 
     // Controllers
     [HomeController.getId()]: new HomeController(),

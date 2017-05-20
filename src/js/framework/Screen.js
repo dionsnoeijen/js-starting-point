@@ -40,7 +40,7 @@ export default class Screen {
 
     dispatchEvent(event) {
         for (let i = 0; i < this.eventListeners.length; i++) {
-            if (event.type == this.eventListeners[i].type) {
+            if (event.type === this.eventListeners[i].type) {
                 this.eventListeners[i].eventHandler(event);
             }
         }

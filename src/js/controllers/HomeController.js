@@ -1,7 +1,7 @@
 'use strict';
 
 import BaseController from '../controllers/BaseController';
-import { dispatch, addObservable } from '../framework/State';
+import { addObservable } from '../framework/State';
 import Container from '../framework/Container';
 
 // var supportsBackgroundBlendMode = window.getComputedStyle(document.body).backgroundBlendMode;
@@ -39,6 +39,8 @@ export default class HomeController extends BaseController {
         element.classList.add('in');
 
         Container.getService('home_slider').animateIn();
+        Container.getService('home_color_layer').animateIn();
+        Container.getService('hexagon_home_pattern').animateIn();
 
         if (callback !== undefined) {
             setTimeout(() => {
@@ -54,6 +56,8 @@ export default class HomeController extends BaseController {
         element.classList.add('out');
 
         Container.getService('home_slider').animateOut();
+        Container.getService('home_color_layer').animateOut();
+        Container.getService('hexagon_home_pattern').animateOut();
 
         if (callback !== undefined) {
             setTimeout(() => {

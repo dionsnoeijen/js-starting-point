@@ -11,6 +11,7 @@ export default class CaseSlidesController extends BaseController {
     constructor() {
         super();
         addObservable(this);
+        this.closeClick = this.onCloseClick.bind(this);
     }
 
     [SET_PARAMETERS](parameters) {
@@ -23,23 +24,26 @@ export default class CaseSlidesController extends BaseController {
 
     render() {
         return super.render([
-            '<div id="' + this.parameters.slug + '-slides">',
-                '<ul>',
-                    '<li>Slide 1</li>',
-                    '<li>Slide 2</li>',
-                '</ul>',
-                '<a id="close" href="' + I18n.getRoute('case', this.parameters.slug) + '">Close</a>',
+            '<div id="' + this.constructor.getId() + '" class="ready ' + this.parameters.slug + '-slides">',
+                '<div class="content">',
+                    '<ul>',
+                        '<li>Slide 1</li>',
+                        '<li>Slide 2</li>',
+                    '</ul>',
+                    '<a id="close" href="' + I18n.getRoute('case', this.parameters.slug) + '">Close</a>',
+                '</div>',
             '</div>'
         ]);
     }
 
     events() {
         let close = document.querySelector('#close');
-        close.removeEventListener('click', this.onCloseClick.bind(this));
-        close.addEventListener('click', this.onCloseClick.bind(this));
+        close.removeEventListener('click', this.closeClick);
+        close.addEventListener('click', this.closeClick);
     }
 
     onCloseClick(event) {
+        console.log('ON CLOSE CLICK');
         event.preventDefault();
         let target = event.target;
         Container.getService('router').navigate(target.getAttribute('href'), true);

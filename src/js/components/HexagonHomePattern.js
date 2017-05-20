@@ -20,7 +20,8 @@ export default class HexagonHomePattern {
     }
 
     [ON_RENDERED](data) {
-        if (data.component.constructor.getId() === this.renderId) {
+        this.currentPage = data.component.constructor.getId();
+        if (this.currentPage === this.renderId) {
             this.polygons = [];
             this.lines = [];
             if (this.snap !== undefined) {
@@ -32,7 +33,9 @@ export default class HexagonHomePattern {
     }
 
     onScreenResize() {
-        this.drawSvg();
+        if (this.currentPage === this.renderId) {
+            this.drawSvg();
+        }
     }
 
     drawPolygon() {

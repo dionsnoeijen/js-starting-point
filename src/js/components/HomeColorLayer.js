@@ -19,7 +19,8 @@ export default class HomeColorLayer {
     }
 
     [ON_RENDERED](data) {
-        if (data.component.constructor.getId() === this.renderId) {
+        this.currentPage = data.component.constructor.getId();
+        if (this.currentPage === this.renderId) {
             this.shapes = [];
             if (this.snap !== undefined) {
                 delete this.snap;
@@ -30,7 +31,9 @@ export default class HomeColorLayer {
     }
 
     onScreenResize() {
-        this.drawSvg();
+        if (this.currentPage === this.renderId) {
+            this.drawSvg();
+        }
     }
 
     drawSvg() {

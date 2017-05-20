@@ -11,6 +11,7 @@ export default class CaseController extends BaseController {
     constructor() {
         super();
         addObservable(this);
+        this.slidesClick = this.onSlidesClick.bind(this);
     }
 
     [SET_PARAMETERS](parameters) {
@@ -23,17 +24,20 @@ export default class CaseController extends BaseController {
 
     render() {
         return super.render([
-            '<div id="' + this.parameters.slug + '">',
-                '<p>Case ' + this.parameters.slug + ' <a href="' + I18n.getRoute('case.slides', this.parameters.slug) + '">Slides</a></p>',
+            '<div id="' + this.constructor.getId() + '" class="ready ' + this.parameters.slug + '">',
+                '<div class="content">',
+                    '<p>Case ' + this.parameters.slug + ' <a href="' + I18n.getRoute('case.slides', this.parameters.slug) + '">Slides</a></p>',
+                '</div>',
             '</div>'
         ]);
     }
 
     events() {
-        let slideLinks = document.querySelectorAll('#' + this.parameters.slug + ' > p > a');
+        let slideLinks = document.querySelectorAll('.' + this.parameters.slug + ' > .content > p > a');
+
         Array.from(slideLinks).map(link => {
-            link.removeEventListener('click', this.onSlidesClick.bind(this));
-            link.addEventListener('click', this.onSlidesClick.bind(this));
+            link.removeEventListener('click', this.slidesClick);
+            link.addEventListener('click', this.slidesClick);
         });
     }
 

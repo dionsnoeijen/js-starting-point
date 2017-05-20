@@ -36,23 +36,25 @@ export default class CasesController extends BaseController {
     render() {
         return super.render([
             '<div id="' + this.constructor.getId() + '" class="ready">',
-                '<ul>',
-                ... this.getCases().map(element => {
-                    return ([
-                        '<li>',
-                        '<a href="' + element.href +'">',
-                        element.name,
-                        '</a>',
-                        '</li>'
-                    ].join(''));
-                }),
-                '</ul>',
+                '<div class="content">',
+                    '<ul>',
+                    ... this.getCases().map(element => {
+                        return ([
+                            '<li>',
+                            '<a href="' + element.href +'">',
+                            element.name,
+                            '</a>',
+                            '</li>'
+                        ].join(''));
+                    }),
+                    '</ul>',
+                '</div>',
             '</div>'
         ]);
     }
 
     events() {
-        let cases = document.querySelectorAll('#' + this.constructor.getId() + ' > ul > li > a');
+        let cases = document.querySelectorAll('#' + this.constructor.getId() + ' > .content > ul > li > a');
         Array.from(cases).map(link => {
             link.removeEventListener('click', this.onCaseClick.bind(this));
             link.addEventListener('click', this.onCaseClick.bind(this));
